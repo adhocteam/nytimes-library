@@ -1,0 +1,14 @@
+<%
+  const fileTypes = {
+    'application/vnd.google-apps.document': 'Google Docs',
+    'image/png': 'PNG',
+    'application/vnd.google-apps.presentation': 'Google Slides',
+    'application/vnd.google-apps.spreadsheet': 'Google Sheets',
+    'image/svg+xml': 'SVG',
+    'application/pdf': 'PDF',
+    'application/vnd.google-apps.drawing': 'Google Drawings',
+    'application/vnd.google-apps.shortcut': 'Google Apps Shortcut',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'PowerPoint'
+  };
+%>
+<span>File Type: <%= fileTypes[mimeType] ?? 'Unknown' %></span>
