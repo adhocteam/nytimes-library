@@ -1,17 +1,11 @@
-import Link from 'next/link'
-
 export default function Home() {
   return (
     <ul>
       <li>
-        <Link href="/a">
-          <a>a</a>
-        </Link>
+        <a href="/a">A</a>
       </li>
       <li>
-        <Link href="/b">
-          <a>b</a>
-        </Link>
+        <a href="/b">B</a>
       </li>
     </ul>
   )
