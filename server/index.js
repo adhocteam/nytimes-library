@@ -155,7 +155,7 @@ app.prepare().then(() => {
   server.set('view engine', 'ejs')
   server.set('views', [
     path.join(__dirname, '../custom/layouts'),
-    path.join(__dirname, '../layouts'),
+    path.join(__dirname, '../layouts')
   ])
 
   server.get('/healthcheck', (req, res) => {
