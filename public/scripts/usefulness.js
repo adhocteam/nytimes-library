@@ -45,9 +45,7 @@ class UsefulnessController extends Stimulus.Controller {
       },
       body: JSON.stringify(payload)
     })
-    // .then(res => console.log(res, res.json().then(d => console.log(d))));
     const json = await res.json()
-
     console.log(json)
   }
 }
