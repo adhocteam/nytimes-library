@@ -1,6 +1,6 @@
 {
   "defaultSrc": ["'self'"],
-  "scriptSrc": ["'self'", "'unsafe-inline'", "cdnjs.cloudflare.com", "*.google-analytics.com"],
+  "scriptSrc": ["'self'", "'unsafe-inline'", "cdnjs.cloudflare.com", "*.google-analytics.com", "cdn.jsdelivr.net"],
   "styleSrc": ["'self'", "'unsafe-inline'", "cdnjs.cloudflare.com", "fonts.googleapis.com", "maxcdn.bootstrapcdn.com", "*.googleusercontent.com", "*.typekit.net"],
   "fontSrc": ["'self'", "fonts.gstatic.com", "maxcdn.bootstrapcdn.com", "*.typekit.net"],
   "imgSrc": ["'self'", "data:", "*.googleusercontent.com", "*.google-analytics.com"],
