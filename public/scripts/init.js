@@ -1,10 +1,10 @@
 import HelloController from './hello.js'
+import UsefulnessController from './usefulness.js'
 
 (() => {
   const application = Stimulus.Application.start()
 
+  // Add additional controllers here
   application.register('hello', HelloController)
-
-  // Register StimulusInvokeController
-  // application.register('invoke', StimulusInvoke.StimulusInvokeController)
+  application.register('usefulness', UsefulnessController)
 })()
