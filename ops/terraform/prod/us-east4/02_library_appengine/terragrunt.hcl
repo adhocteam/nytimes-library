@@ -13,9 +13,8 @@ dependency "service_account" {
 }
 
 locals {
-  project_id  = read_terragrunt_config(find_in_parent_folders("account.hcl"))
-  environment = read_terragrunt_config(find_in_parent_folders("account.hcl"))
-  region      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
+  project_id = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+  region     = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 }
 
 inputs = {

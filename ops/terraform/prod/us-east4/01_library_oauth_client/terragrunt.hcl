@@ -15,7 +15,7 @@ dependency "library_service_api" {
 
 
 locals {
-  environment     = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+  environment     = "prod"
   resource_prefix = "nytimes-library"
   project_id      = read_terragrunt_config(find_in_parent_folders("account.hcl"))
 }
