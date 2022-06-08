@@ -17,3 +17,5 @@ coverage
 .terraform
 *.tfstate
 .terragrunt-cache
+
+.parcel-cache
