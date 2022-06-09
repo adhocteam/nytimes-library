@@ -5,6 +5,7 @@
   "main": "server/index.js",
   "dependencies": {
     "@google-cloud/datastore": "^6.6.2",
+    "@hotwired/stimulus": "^3.0.1",
     "cache-manager": "^3.3.0",
     "chai": "^4.2.0",
     "cheerio": "^1.0.0-rc.3",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
+    "css-loader": "^6.7.1",
     "dotenv": "^8.6.0",
     "eslint": "^7.10.0",
     "eslint-config-standard": "^14.1.1",
@@ -46,9 +48,18 @@
     "nock": "^13.0.3",
     "nodemon": "^2.0.4",
     "nyc": "^15.1.0",
+    "prettier": "^2.5.1",
+    "sass": "^1.52.1",
+    "sass-loader": "^13.0.0",
     "sinon": "^9.0.2",
+    "style-loader": "^3.3.1",
     "supertest": "^4.0.2",
-    "valid-url": "^1.0.9"
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.7.3",
+    "valid-url": "^1.0.9",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.1"
   },
   "scripts": {
     "start": "node -r dotenv/config server/index.js",
@@ -60,7 +71,8 @@
     "test": "NODE_ENV=test PORT=3001 jest --setupFiles dotenv/config --setupTestFrameworkScriptFile='./test/utils/bootstrap.js' --forceExit",
     "test:cover": "NODE_ENV=test PORT=3001 nyc --include=server/** --reporter=html --reporter=text jest test/**/*.test.js --setupFiles dotenv/config --setupTestFrameworkScriptFile='./test/utils/bootstrap.js' --forceExit",
     "lint": "eslint ./server",
-    "gcp-build": "./bin/install_customizations && npm run build && ./bin/update_gae_pkg"
+    "gcp-build": "./bin/install_customizations && npm run build && ./bin/update_gae_pkg",
+    "webpack": "npx webpack --mode production"
   },
   "repository": {
     "type": "git",
