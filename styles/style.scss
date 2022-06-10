@@ -1,13 +1,13 @@
 // top level templating values that can be overridden
-@import "partials/vars";
-@import "partials/theme";
+@import "vars";
+@import "theme";
 
 // core layout styles rarely overridden
-@import "partials/core/mixins";
-@import "partials/core/base";
-@import "partials/core/furniture";
-@import "partials/core/pages";
-@import "partials/core/categories";
+@import "core/mixins";
+@import "core/base";
+@import "core/furniture";
+@import "core/pages";
+@import "core/categories";
 
 // final stylesheet with any additional styles for custom logic
-@import "partials/custom";
+@import "custom";
