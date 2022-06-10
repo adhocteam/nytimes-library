@@ -1,9 +1,9 @@
 'use strict'
 
 const {google} = require('googleapis')
-const {getAuth} = require('../server/auth')
-const list = require('../server/list')
-const log = require('../server/logger')
+const {getAuth} = require('./auth')
+const list = require('./list')
+const log = require('./logger')
 
 const driveId = process.env.DRIVE_ID
 
@@ -17,9 +17,7 @@ exports.run = async (query, driveType = 'team') => {
     folderIds = await getAllFolders({drive})
   }
 
-  const excludedFolders = await getExcludedFolders(drive)
-
-  const files = await fullSearch({drive, query, folderIds, driveType, excludedFolders})
+  const files = await fullSearch({drive, query, folderIds, driveType})
     .catch((err) => {
       log.error(`Error when searching for ${query}, ${err}`)
       throw err
@@ -32,8 +30,8 @@ exports.run = async (query, driveType = 'team') => {
   return fileMetas
 }
 
-async function fullSearch({drive, query, folderIds, results = [], nextPageToken: pageToken, driveType, excludedFolders}) {
-  const options = getOptions(query, folderIds, driveType, excludedFolders)
+async function fullSearch({drive, query, folderIds, results = [], nextPageToken: pageToken, driveType}) {
+  const options = getOptions(query, folderIds, driveType)
 
   if (pageToken) {
     options.pageToken = pageToken
@@ -89,7 +87,7 @@ async function getAllFolders({nextPageToken: pageToken, drive, parentIds = [driv
   return combined.map((folder) => folder.id)
 }
 
-function getOptions(query, folderIds, driveType, excludedFolders) {
+function getOptions(query, folderIds, driveType) {
   const fields = '*'
 
   if (driveType === 'folder') {
@@ -101,35 +99,10 @@ function getOptions(query, folderIds, driveType, excludedFolders) {
     }
   }
 
-  // Filter ignored folders from search
-  let excludeFolderQuery = ''
-  if (Array.isArray(excludedFolders)) {
-    excludeFolderQuery = excludedFolders.map((folder) => `AND NOT '${folder}' in parents`).join(' ')
-  }
-
   return {
     ...list.commonListOptions.team,
-    q: `fullText contains ${JSON.stringify(query)} AND mimeType != 'application/vnd.google-apps.folder' ${excludeFolderQuery} AND trashed = false`,
+    q: `fullText contains ${JSON.stringify(query)} AND mimeType != 'application/vnd.google-apps.folder' AND trashed = false`,
     teamDriveId: driveId,
     fields
   }
-}
-
-// Gets excluded folders and subfolders. The parent excluded folder(s) come from
-// the environment variable EXCLUDE_FOLDERS. It is assumed that the environment variable
-// will have comma delimited Google Drive Folder Ids.
-// Example:
-//   EXCLUDE_FOLDERS=1eg1nvVmfER1_824VPO2WzOG2EXXTwE0l,179O1Oq8pkD69D_hJKe2BxTvHanp9HGM
-async function getExcludedFolders(drive) {
-  const ignoredFolders = process.env.EXCLUDE_FOLDERS
-
-  if (!ignoredFolders) {
-    return []
-  }
-
-  const folders = ignoredFolders.split(',')
-  const subfolders = folders.map(async (folder) => await getAllFolders({drive, parentIds: [folder]}))
-  const result = await Promise.all(subfolders)
-
-  return [...folders, ...result.flat()]
 }
