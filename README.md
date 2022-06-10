@@ -75,7 +75,7 @@ To add a new Stimulus controller to this project, add a new controller under the
 
 For example Stimulus code, refer to the `stimulus-examples` branch. [Link here](https://github.com/adhocteam/nytimes-library/tree/stimulus-examples/scripts)
 
-The webpack compiled output will located at: `/public/scripts/index.js` along with the source map: `/public/scripts/index.js.map`.
+The webpack compiled output will located at: `/public/bundle/bundle.js` along with the source map: `/public/bundle/bundle.js.map`.
 
 ---
 ## Demo Site & User Guide

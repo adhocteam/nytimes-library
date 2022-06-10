@@ -19,5 +19,4 @@ coverage
 .terragrunt-cache
 
 # Webpack Output
-public/scripts/index.js
-public/scripts/index.js.map
+public/bundle

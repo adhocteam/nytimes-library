@@ -5,8 +5,8 @@ const isProduction = process.env.NODE_ENV == "production";
 const config = {
   entry: ["./custom/styles/styles.scss"],
   output: {
-    path: path.resolve(__dirname, "./public/scripts"),
-    filename: 'index.js'
+    path: path.resolve(__dirname, "./public/bundle"),
+    filename: 'bundle.js'
   },
   plugins: [
     // Add your plugins here
