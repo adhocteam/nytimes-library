@@ -67,6 +67,16 @@ For example, to create a custom page handler:
 This would be useful in cases if you wanted to modify data without resorting to middleware.  An example would be adding a property to the response without writing middleware to parse the payload or override `response.send()`.
 
 
+### TypeScript and Stimulus.js
+
+The AdHoc Content Library is built with [TypeScript](https://www.typescriptlang.org/) and [Stimulus.js](https://stimulus.hotwired.dev/).  
+
+To add a new Stimulus controller to this project, add a new controller under the `/scripts/controllers` folder.  And make sure to register the new controller in the file `/scripts/index.ts`.  For more information on how to use Stimulus, please refer to the [Stimulus.js Handbook](https://stimulus.hotwired.dev/handbook/introduction).
+
+For example Stimulus code, refer to the `stimulus-examples` branch. [Link here](https://github.com/adhocteam/nytimes-library/tree/stimulus-examples/scripts)
+
+The webpack compiled output will located at: `/public/scripts/index.js` along with the source map: `/public/scripts/index.js.map`.
+
 ---
 ## Demo Site & User Guide
 
