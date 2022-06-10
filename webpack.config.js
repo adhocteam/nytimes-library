@@ -9,10 +9,6 @@ const config = {
     path: path.resolve(__dirname, "./public/scripts"),
     filename: 'index.js'
   },
-  devServer: {
-    open: true,
-    host: "localhost",
-  },
   plugins: [
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
