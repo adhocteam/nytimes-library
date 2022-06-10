@@ -4,7 +4,7 @@ const glob = require('glob');
 const isProduction = process.env.NODE_ENV == "production";
 
 const config = {
-  entry: ['./styles/errors.scss', './styles/style.scss', ...glob.sync('./custom/styles/**/*.scss')],
+  entry: ["./custom/styles/styles.scss"],
   output: {
     path: path.resolve(__dirname, "./public/scripts"),
     filename: 'index.js'
