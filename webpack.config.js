@@ -1,13 +1,10 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
-const path = require("path");
+const path = require('path');
+const glob = require('glob');
 
 const isProduction = process.env.NODE_ENV == "production";
 
-const stylesHandler = "style-loader";
-
 const config = {
-  entry: "./scripts/index.ts",
+  entry: ['./styles/errors.scss', './styles/style.scss', ...glob.sync('./custom/styles/**/*.scss')],
   output: {
     path: path.resolve(__dirname, "./public/scripts"),
     filename: 'index.js'
@@ -29,11 +26,11 @@ const config = {
       },
       {
         test: /\.css$/i,
-        use: [stylesHandler, "css-loader"],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [stylesHandler, "css-loader", "sass-loader"],
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
