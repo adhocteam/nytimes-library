@@ -1,5 +1,4 @@
 const path = require('path');
-const glob = require('glob');
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -40,6 +39,7 @@ const config = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
+  devtool: 'source-map'
 };
 
 module.exports = () => {
