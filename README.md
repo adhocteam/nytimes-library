@@ -81,7 +81,7 @@ The webpack compiled output will located at: `/public/bundle/bundle.js` along wi
 
 The original NYTimes Library was built with [`node-sass`](https://github.com/sass/node-sass).  When Webpack was added, the updated ['dart-sass'](https://github.com/sass/dart-sass) is used by `sass-loader` and `node-sass` removed.
 
-Previously, the npm build scripts used `node-sass` and `--include-paths` command line parameters where the earlier paths took precedence over later paths.  This has been switch to Webpack `sass-loader` which uses the concept of entry points and imports the references as indicated in the entry point files.  Due to this difference, new custom `errors.scss` and `style.scss` were created to correctly import the files in correct order.
+Previously, the npm build scripts used `node-sass` and `--include-paths` command line parameters where the earlier paths took precedence over later paths in the command.  This is different from the Webpack `sass-loader` which uses the concept of entry points and imports the SASS references as indicated in the entry point files.  Due to this difference, new custom `errors.scss` and `style.scss` were created to correctly import the files in correct order.
 
 ---
 ## Demo Site & User Guide
