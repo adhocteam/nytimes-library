@@ -3,10 +3,14 @@ const path = require('path');
 const isProduction = process.env.NODE_ENV == "production";
 
 const config = {
-  entry: ["./custom/styles/styles.scss"],
+  entry: {
+    style: "./custom/styles/styles.scss",
+    // error: "./custom/styles/errors.scss",
+    main: "./scripts/index.ts"
+  },
   output: {
     path: path.resolve(__dirname, "./public/bundle"),
-    filename: 'bundle.js'
+    filename: '[name]-bundle.js'
   },
   plugins: [
     // Add your plugins here
