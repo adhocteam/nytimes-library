@@ -13,7 +13,7 @@
         href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css">
   
     <% if (locals.inlineCSS) { %>
-      <style type="text/css"><%- inlineCSS %></style>
+      <script><%- inlineCSS %></script>
     <% } else { %>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
       <script src="/assets/scripts/main.js" charset="utf-8"></script>

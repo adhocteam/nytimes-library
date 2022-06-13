@@ -4,8 +4,8 @@ const isProduction = process.env.NODE_ENV == "production";
 
 const config = {
   entry: {
-    style: "./custom/styles/styles.scss",
-    // error: "./custom/styles/errors.scss",
+    style: "./custom/styles/style.scss",
+    error: "./custom/styles/errors.scss",
     main: "./scripts/index.ts"
   },
   output: {
