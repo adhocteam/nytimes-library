@@ -2,13 +2,14 @@ import { Controller } from '@hotwired/stimulus'
 
 class UsefulnessController extends Controller {
     launchModal: String | null
-    
+    reasonTargets: any
+
     initialize() {
       this.launchModal = ''
     }
   
     static get targets() {
-      return []
+      return ['reason']
     }
   
     handleVote(event: any) {
@@ -24,8 +25,10 @@ class UsefulnessController extends Controller {
     handleSubmit() {
       const documentId = this.data.get('documentId')
       const location = this.launchModal === 'useful-yes' ? '/api/upvote' : '/api/downvote'
-      const checked: HTMLInputElement = document.querySelector('input[name="reason"]:checked')
-      const reason = checked ? checked.value : ''
+
+      const checkedRadios = this.reasonTargets.filter(radio => radio.checked)
+      const reason = checkedRadios.length > 0 ? checkedRadios[0].value : 'unknown'
+
       this.post(location, {
         id: documentId,
         reason
