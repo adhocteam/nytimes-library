@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
-
+import { UsefulnessReason } from '../common/enum'
 class UsefulnessController extends Controller {
     launchModal: String | null
     reasonTargets: any
@@ -29,7 +29,8 @@ class UsefulnessController extends Controller {
       const location = this.launchModal === 'usefulYes' ? '/api/upvote' : '/api/downvote'
 
       const checkedRadios = this.reasonTargets.filter(radio => radio.checked)
-      const reason = checkedRadios.length > 0 ? checkedRadios[0].value : 'unknown'
+      const reasonValue = checkedRadios.length > 0 ? checkedRadios[0].value : 0
+      const reason = UsefulnessReason[reasonValue]
 
       this.post(location, {
         id: documentId,
