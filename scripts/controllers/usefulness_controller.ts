@@ -1,11 +1,9 @@
 import { Controller } from '@hotwired/stimulus'
 
 class UsefulnessController extends Controller {
-    vote: String | null
     launchModal: String | null
     
     initialize() {
-      this.vote = null
       this.launchModal = ''
     }
   
@@ -15,7 +13,6 @@ class UsefulnessController extends Controller {
   
     handleVote(event: any) {
       this.launchModal = event.params.launchModal
-      this.vote = this.launchModal === 'useful-yes' ? 'yes' : 'no'
       const modal = document.querySelector(`#${this.launchModal}`)
       modal.classList.add('active')
     }
@@ -26,7 +23,7 @@ class UsefulnessController extends Controller {
   
     handleSubmit() {
       const documentId = this.data.get('documentId')
-      const location = this.vote === 'yes' ? '/api/upvote' : '/api/downvote'
+      const location = this.launchModal === 'useful-yes' ? '/api/upvote' : '/api/downvote'
       const checked: HTMLInputElement = document.querySelector('input[name="reason"]:checked')
       const reason = checked ? checked.value : ''
       this.post(location, {
