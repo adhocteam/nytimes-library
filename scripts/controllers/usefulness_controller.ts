@@ -3,19 +3,21 @@ import { Controller } from '@hotwired/stimulus'
 class UsefulnessController extends Controller {
     launchModal: String | null
     reasonTargets: any
+    usefulYesTarget: any
+    usefulNoTarget: any
 
     initialize() {
       this.launchModal = ''
     }
   
     static get targets() {
-      return ['reason']
+      return ['reason', 'usefulYes', 'usefulNo']
     }
   
     handleVote(event: any) {
       this.launchModal = event.params.launchModal
-      const modal = document.querySelector(`#${this.launchModal}`)
-      modal.classList.add('active')
+
+      this[`${this.launchModal}Target`].classList.add('active')
     }
   
     handleCancel() {
@@ -24,7 +26,7 @@ class UsefulnessController extends Controller {
   
     handleSubmit() {
       const documentId = this.data.get('documentId')
-      const location = this.launchModal === 'useful-yes' ? '/api/upvote' : '/api/downvote'
+      const location = this.launchModal === 'usefulYes' ? '/api/upvote' : '/api/downvote'
 
       const checkedRadios = this.reasonTargets.filter(radio => radio.checked)
       const reason = checkedRadios.length > 0 ? checkedRadios[0].value : 'unknown'
@@ -37,8 +39,7 @@ class UsefulnessController extends Controller {
     }
   
     closeModal() {
-      const modal = document.querySelector(`#${this.launchModal}`)
-      modal.classList.remove('active')
+      this[`${this.launchModal}Target`].classList.remove('active')
       this.launchModal = ''
     }
   
