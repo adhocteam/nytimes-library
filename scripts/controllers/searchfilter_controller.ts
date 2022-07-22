@@ -5,9 +5,10 @@ class SearchFilterController extends Controller {
   typesTarget: any;
   modalTarget: any;
   checkboxTargets: any;
+  typesDescTarget: any;
   selectedTypes: String[] = [];
 
-  static targets = ['types', 'modal', 'checkbox'];
+  static targets = ['types', 'modal', 'checkbox', 'typesDesc'];
 
   connect(): void {
     this.updateHiddenField();
@@ -24,6 +25,7 @@ class SearchFilterController extends Controller {
   onSubmit(): void {
     this.selectedTypes = this.checkboxTargets.filter(x => x.checked).map(x => x.value);
     this.updateHiddenField();
+    this.typesDescTarget.innerHTML = this.selectedTypes.join(',');
     this.dismissModal();
   }
 
