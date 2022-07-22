@@ -1,11 +1,11 @@
 <div data-controller="searchfilter">
-  <div class="search-topper" style="flex-direction: column; gap: 1rem; align-items: center">
-    <form method="GET" action="/search" class="search-container" style="display: flex">
+  <div class="search-topper">
+    <form method="GET" action="/search" class="search-container">
       <% const placeholder = template('search.placeholder')%>
       <% const focus = locals.focus || '' %>
       <% const msgOnFocus = placeholder || '' %>
       <input <%= focus %> id="search-box" class="twitter-typeahead" type="text" name="q" value="<%= locals.q %>" placeholder="<%- placeholder %>" />
-      <input type="hidden" name="types" data-searchfilter-target="types" value="pdf,docs" />
+      <input type="hidden" name="types" data-searchfilter-target="types" value="" />
       <button class="icon"><i class="fa fa-search"></i></button>
     </form>
  
@@ -29,7 +29,7 @@
             Filter your search?
           </header>
           <p>Filter by File Type</p>
-          <div style="display: flex; flex-direction: column; width: 12rem; margin-left: 1rem;">
+          <div class="filetype-checkbox-container">
           <% const fileTypeKeys = Object.keys(fileTypeNames).sort() %>
           <% for (const key of fileTypeKeys) { %>
             <div>
