@@ -9,6 +9,7 @@ jobs:
     env:
       TAG: ${{ github.sha }}
       NODE_ENV: development
+      DEV_ENDPOINT: https://content-library-dev.adhoc.pizza/auth/redirect
     steps:
       - name: Checking Repository
         uses: actions/checkout@v2
@@ -32,6 +33,7 @@ jobs:
           echo "APPROVED_DOMAINS=${{ secrets.APPROVED_DOMAINS }} >> .env"
           echo "DRIVE_TYPE=${{ secrets.DRIVE_TYPE }} >> .env"
           echo "DRIVE_ID=${{ secrets.DRIVE_ID }} >> .env"
+          echo "REDIRECT_URL=${{ env.DEV_ENDPOINT }} >> .env"
 
       - name: Deploy to dev GAE project
         run: 'gcloud app deploy app.yaml --quiet --version ${{ env.TAG }}'
