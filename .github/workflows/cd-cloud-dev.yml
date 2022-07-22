@@ -10,6 +10,7 @@ jobs:
       TAG: ${{ github.sha }}
       NODE_ENV: development
       DEV_ENDPOINT: https://content-library-dev.adhoc.pizza/auth/redirect
+      APPROVED_DOMAINS: adhocteam.us
       ENV_SHORTNAME: dev
     steps:
       - name: Checking Repository
@@ -31,6 +32,7 @@ jobs:
           echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .env"
           printf '%s' "GOOGLE_APPLICATION_JSON='$(./ops/gcloud_secrets_helper.sh nytimes-library-${{ env.ENV_SHORTNAME }}-private-key | tr '_-' '/+' | base64 -d | jq -c .)'" >> .env
           echo "GOOGLE_APPLICATION_CREDENTIALS=parse_json >> .env"
+          echo "APPROVED_DOMAINS=${{ env.APPROVED_DOMAINS }} >> .env"
           echo "GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }} >> .env"
           echo "APPROVED_DOMAINS=${{ secrets.APPROVED_DOMAINS }} >> .env"
           echo "DRIVE_TYPE=${{ secrets.DRIVE_TYPE }} >> .env"
