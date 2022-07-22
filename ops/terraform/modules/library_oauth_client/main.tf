@@ -10,7 +10,7 @@ resource "google_iap_brand" "main" {
 
 resource "google_secret_manager_secret" "main_client_id" {
   count     = var.use_secretsmanager ? 1 : 0
-  secret_id = "${var.secretsmanager_resource_prefix}-oauth-client-id"
+  secret_id = "GOOGLE_CLIENT_ID"
   replication {
     automatic = true
   }
@@ -18,7 +18,7 @@ resource "google_secret_manager_secret" "main_client_id" {
 
 resource "google_secret_manager_secret" "main_client_secret" {
   count     = var.use_secretsmanager ? 1 : 0
-  secret_id = "${var.secretsmanager_resource_prefix}-oauth-client-secret"
+  secret_id = "GOOGLE_CLIENT_SECRET"
   replication {
     automatic = true
   }
@@ -39,7 +39,7 @@ resource "random_password" "session_secret" {
 
 resource "google_secret_manager_secret" "main_session_secret" {
   count     = var.use_secretsmanager ? 1 : 0
-  secret_id = "${var.secretsmanager_resource_prefix}-oauth-session-secret"
+  secret_id = "SESSION_SECRET"
   replication {
     automatic = true
   }
