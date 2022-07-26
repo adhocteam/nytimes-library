@@ -33,14 +33,14 @@ locals {
       value = "production"
     }
   ])
-  full_environment_vars = concat(local.common_env_vars, local.environment_env_vars)
+  full_environment_vars     = concat(local.common_env_vars, local.environment_env_vars)
   common_sensitive_env_vars = tolist(jsondecode(file(find_in_parent_folders("common_sensitive_vars.json"))))
-  sensitive_env_vars      = tolist([])
-  full_sensitive_env_vars = concat(local.common_sensitive_env_vars, local.sensitive_env_vars)
+  sensitive_env_vars        = tolist([])
+  full_sensitive_env_vars   = concat(local.common_sensitive_env_vars, local.sensitive_env_vars)
 }
 
 inputs = {
-  project_id                   = local.project_id.locals.project_id
-  plaintext_secret_resources   = local.full_environment_vars
-  sensitive_secret_resources   = local.full_sensitive_env_vars
+  project_id                 = local.project_id.locals.project_id
+  plaintext_secret_resources = local.full_environment_vars
+  sensitive_secret_resources = local.full_sensitive_env_vars
 }
