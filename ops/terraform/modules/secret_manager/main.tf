@@ -6,9 +6,9 @@ resource "google_secret_manager_secret" "plaintext_secret_resources" {
   }
 }
 
-resource "google_secret_manager_secret_version" "main_publickey" {
+resource "google_secret_manager_secret_version" "plaintext_secret_resource_value" {
   for_each = { for secret in var.plaintext_secret_resources : secret.name => secret }
-  secret   = google_secret_manager_secret.main_publickey[secret.name].id
+  secret   = google_secret_manager_secret.plaintext_secret_resources[secret.name].id
 
   secret_data = secret.value
 }
