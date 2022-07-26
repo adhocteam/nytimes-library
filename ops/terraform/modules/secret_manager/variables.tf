@@ -12,6 +12,12 @@ variable "plaintext_secret_resources" {
   default = []
 }
 
+variable "sensitive_secret_resources" {
+  description = "A list of names to create plaintext encoded secret manager resources but set a value for them outside of TF."
+  type        = list(string)
+  default     = []
+}
+
 variable "base64_encoded_secrets" {
   description = "A list of names to create a base64 encoded labeled secret manager resource. NOT a map!"
   type        = list(string)

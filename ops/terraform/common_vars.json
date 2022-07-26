@@ -10,17 +10,5 @@
   {
     "name": "APPROVED_DOMAINS",
     "value": "adhocteam.us"
-  },
-  {
-    "name": "DRIVE_ID",
-    "value": "sensitive"
-  },
-  {
-    "name": "DRIVE_ID",
-    "value": "sensitive"
-  },
-  {
-    "name": "EXCLUDE_FOLDERS",
-    "value": "sensitive"
   }
 ]

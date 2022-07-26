@@ -15,7 +15,7 @@ dependency "library_service_api" {
 
 
 locals {
-  environment     = "dev"
+  environment     = "prod"
   resource_prefix = "nytimes-library"
   project_id      = read_terragrunt_config(find_in_parent_folders("account.hcl"))
   common_env_vars = tolist(jsondecode(file(find_in_parent_folders("common_vars.json"))))
@@ -26,11 +26,11 @@ locals {
     },
     {
       name  = "REDIRECT_URL"
-      value = "https://content-library-${local.environment}.adhoc.pizza/auth/redirect"
+      value = "https://content-library.adhoc.pizza/auth/redirect"
     },
     {
       name  = "NODE_ENV"
-      value = "development"
+      value = "production"
     }
   ])
   full_environment_vars = concat(local.common_env_vars, local.environment_env_vars)
