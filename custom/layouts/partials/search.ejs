@@ -34,7 +34,7 @@
           <% const fileTypeKeys = Object.keys(fileTypeNames).sort() %>
           <% for (const key of fileTypeKeys) { %>
             <div>
-                <input type="checkbox" data-searchfilter-target="checkbox" value="<%= fileTypeNames[key] %>"> <%= key %>
+                <input type="checkbox" data-searchfilter-target="checkbox" value="<%= fileTypeNames[key] %>" id="<%= key %>"><label for="<%= key %>"><%= key %></label>
             </div>
           <% } %>
           </div>
