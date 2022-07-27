@@ -1,6 +1,20 @@
 const getSecret = async (client, projectId, name, isBase64 = false) => {
   const path = `projects/${projectId}/secrets/${name}`;
 
+  const parent = `projects/${projectId}`;
+
+  const [secrets] = await client.listSecrets({
+    parent: parent,
+  });
+
+  secrets.forEach(secret => {
+    const policy = secret.replication.userManaged
+      ? secret.replication.userManaged
+      : secret.replication.automatic;
+    console.log(`${secret.name} (${JSON.stringify(policy)})`);
+    console.log(secret, secret.payload);
+  });
+
   const [version] = await client.accessSecretVersion({
     name: `${path}/versions/latest`,
   });
@@ -141,7 +155,6 @@ const startServer = () => {
     process.env.REDIRECT_URL = await getSecret(client, projectId, 'REDIRECT_URL', false);
     process.env.GOOGLE_APPLICATION_JSON = await getSecret(client, projectId, 'GOOGLE_APPLICATION_JSON', true);
     process.env.GOOGLE_APPLICATION_CREDENTIALS = await getSecret(client, projectId, 'GOOGLE_APPLICATION_CREDENTIALS', false);
-    process.env.GOOGLE_APPLICATION_PUBLIC_KEY = await getSecret(client, projectId, 'GOOGLE_APPLICATION_PUBLIC_KEY', true);
     process.env.GOOGLE_CLIENT_ID = await getSecret(client, projectId, 'GOOGLE_CLIENT_ID', false);
     process.env.GOOGLE_CLIENT_SECRET = await getSecret(client, projectId, 'GOOGLE_CLIENT_SECRET', false);
     process.env.SESSION_SECRET = await getSecret(client, projectId, 'SESSION_SECRET', false);
