@@ -25,6 +25,10 @@ locals {
       value = local.project_id.locals.project_id
     },
     {
+      name  = "GOOGLE_CLIENT_ID"
+      value = "186555725451-b4v2j655qc572nbd1ktq1h0mecs9spt6.apps.googleusercontent.com"
+    },
+    {
       name  = "REDIRECT_URL"
       value = "https://content-library-dev.adhoc.pizza/auth/redirect"
     },
