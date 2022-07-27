@@ -71,7 +71,6 @@
   background-color: #fff;
   box-shadow: 5px 5px 0px 0px $gray-25;
 
-  // transition: all .125s ease-in 0s;
   -webkit-transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
@@ -160,5 +159,16 @@
   margin-left: 1rem;
   label {
     margin-left: .25rem;
+  }
+}
+
+#filterTools {
+  width: calc(100% - 20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  button {
+    min-width: 8rem;
   }
 }

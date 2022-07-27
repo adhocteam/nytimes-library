@@ -15,9 +15,13 @@
       <%# <a href="#"><button type="button" class="btn-plaintext">Onboarding Guide</button></a>%>
     </div>
  
-    <div>
-        <div>Filtered by: <span data-searchfilter-target="typesDesc"></span></div>
-        <a data-action="click->searchfilter#summonModal">Filter Search</a>
+    <div id="filterTools">
+        <div> <span data-searchfilter-target="filteredByLabel"></span><span data-searchfilter-target="typesDesc"></span></div>
+        <button
+          data-action="click->searchfilter#summonModal"
+          class="button"
+          type="button"
+        >Filter Search</button>
     </div>
   </div>
 
