@@ -3,6 +3,7 @@ import { Controller } from '@hotwired/stimulus'
 
 class SearchFilterController extends Controller {
   backdropTarget: any;
+  filteredByLabelTarget: any;
   typesTarget: any;
   modalTarget: any;
   modalBodyTarget: any;
@@ -10,7 +11,7 @@ class SearchFilterController extends Controller {
   typesDescTarget: any;
   selectedTypes: String[] = [];
 
-  static targets = ['backdrop', 'types', 'modal', 'modalBody', 'checkbox', 'typesDesc'];
+  static targets = ['backdrop', 'filteredByLabel', 'types', 'modal', 'modalBody', 'checkbox', 'typesDesc'];
 
   connect(): void {
     this.updateHiddenField();
@@ -35,7 +36,8 @@ class SearchFilterController extends Controller {
   onSubmit(): void {
     this.selectedTypes = this.checkboxTargets.filter(x => x.checked).map(x => x.value);
     this.updateHiddenField();
-    this.typesDescTarget.innerHTML = this.selectedTypes.join(',');
+    this.filteredByLabelTarget.innerHTML = this.selectedTypes.length ? 'Filtered by: ' : '';
+    this.typesDescTarget.innerHTML = this.selectedTypes.join(', ');
     this.dismissModal();
   }
 
