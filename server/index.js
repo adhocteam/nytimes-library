@@ -1,4 +1,4 @@
-const log = require('logger');
+const log = require('./logger');
 
 (async () => {
   const gcpMetadata = require('gcp-metadata');
