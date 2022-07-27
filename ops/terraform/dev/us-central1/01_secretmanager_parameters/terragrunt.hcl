@@ -26,7 +26,7 @@ locals {
     },
     {
       name  = "REDIRECT_URL"
-      value = "https://content-library-${local.environment}.adhoc.pizza/auth/redirect"
+      value = "https://content-library-dev.adhoc.pizza/auth/redirect"
     },
     {
       name  = "NODE_ENV"

@@ -32,24 +32,6 @@ resource "google_project_iam_binding" "main_secretmanager" {
   ]
 }
 
-resource "google_secret_manager_secret" "main_publickey" {
-  count     = var.use_secretsmanager ? 1 : 0
-  secret_id = "GOOGLE_APPLICATION_PUBLIC_KEY"
-  labels = {
-    encoded = "base64"
-  }
-  replication {
-    automatic = true
-  }
-}
-
-resource "google_secret_manager_secret_version" "main_publickey" {
-  count  = var.use_secretsmanager ? 1 : 0
-  secret = google_secret_manager_secret.main_publickey[0].id
-
-  secret_data = google_service_account_key.main[0].public_key
-}
-
 resource "google_secret_manager_secret" "main_privatekey" {
   count     = var.use_secretsmanager ? 1 : 0
   secret_id = "GOOGLE_APPLICATION_JSON"
