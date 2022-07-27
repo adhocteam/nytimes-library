@@ -23,7 +23,7 @@
 
   <div class="modal" data-searchfilter-target="modal">
     <div class="wrapper">
-      <section class="modalBody">
+      <section class="modalBody" data-searchfilter-target="modalBody">
         <div class="modalGraphic"></div>
         <div class="modalContent">
           <header>
@@ -45,6 +45,12 @@
         </div>
       </section>
     </div>
-    <button class="modal-close" data-action="click->searchfilter#dismissModal" type="button">Close</button>
+    <button
+      class="modal-close"
+      data-action="click->searchfilter#dismissModal"
+      type="button"
+      data-searchfilter-target="backdrop"
+    >
+      Close</button>
   </div>
 </div>

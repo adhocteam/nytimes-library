@@ -2,24 +2,34 @@
 import { Controller } from '@hotwired/stimulus'
 
 class SearchFilterController extends Controller {
+  backdropTarget: any;
   typesTarget: any;
   modalTarget: any;
+  modalBodyTarget: any;
   checkboxTargets: any;
   typesDescTarget: any;
   selectedTypes: String[] = [];
 
-  static targets = ['types', 'modal', 'checkbox', 'typesDesc'];
+  static targets = ['backdrop', 'types', 'modal', 'modalBody', 'checkbox', 'typesDesc'];
 
   connect(): void {
     this.updateHiddenField();
   }
 
   summonModal(): void {
-    this.modalTarget.style.display = 'flex';
+    this.modalTarget.classList.add('active')
+    setTimeout(() => {
+      this.backdropTarget.classList.add('active')
+      this.modalBodyTarget.classList.add('active')
+    }, 10)
   }
 
   dismissModal(): void {
-    this.modalTarget.style.display = 'none';
+    this.modalBodyTarget.classList.remove('active')
+    this.backdropTarget.classList.remove('active')
+    setTimeout(() => {
+      this.modalTarget.classList.remove('active')
+    }, 200)
   }
 
   onSubmit(): void {
