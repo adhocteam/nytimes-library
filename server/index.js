@@ -17,6 +17,7 @@ const log = require('./logger');
 
     log.info(`Loading environment variables for project: ${projectId}`);
 
+    // List of environment variables stored in base64-encoded format, rather than raw strings
     const base64Vars = ['GOOGLE_APPLICATION_JSON'];
 
     const client = new SecretManagerServiceClient();
