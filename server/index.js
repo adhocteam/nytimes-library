@@ -1,3 +1,49 @@
+const log = require('logger');
+
+(async () => {
+  const gcpMetadata = require('gcp-metadata');
+  const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
+
+  // GCP Metadata is only available to the deployed instance.
+  // Running locally, you would still use the .env file.
+  const isDeployedInstance = await gcpMetadata.isAvailable();
+
+  if (isDeployedInstance) {
+    log.info('App Engine deployed instance detected...');
+
+    // We're on GCP here.  Load up environment variables from 
+    // Secrets Manager
+    const projectId = await gcpMetadata.project('project-id');
+
+    log.info(`Loading environment variables for project: ${projectId}`);
+
+    const base64Vars = ['GOOGLE_APPLICATION_JSON'];
+
+    const client = new SecretManagerServiceClient();
+
+    const parent = `projects/${projectId}`;
+
+    const [secrets] = await client.listSecrets({
+      parent: parent,
+    });
+
+    for (let secret of secrets) {
+      const path = secret.name.split('/');
+      const envVar = path[path.length > 0 ? path.length - 1 : 0];
+
+      log.info(`Loading environment variable ${envVar}`);
+
+      process.env[envVar] = await getSecret(client, secret.name, base64Vars.indexOf(envVar) !== -1);
+    }
+
+    log.info('Environment variables loaded...')
+  }
+
+  startServer();
+})();
+
+
+// Gets secrets from the GCP Secret Manager
 const getSecret = async (client, name, isBase64 = false) => {
   const [version] = await client.accessSecretVersion({
     name: `${name}/versions/latest`,
@@ -8,6 +54,8 @@ const getSecret = async (client, name, isBase64 = false) => {
   return isBase64 ? Buffer.from(payload, 'base64') : payload;
 }
 
+
+// Starts the Content Library Express Instance
 const startServer = () => {
   const path = require('path')
 
@@ -113,36 +161,3 @@ const startServer = () => {
 
   module.exports = app
 }
-
-(async () => {
-  const gcpMetadata = require('gcp-metadata');
-  const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
-
-  // GCP Metadata is only available to the deployed instance.
-  // Running locally, you would still use the .env file.
-  const isDeployedInstance = await gcpMetadata.isAvailable();
-
-  if (isDeployedInstance) {
-    // We're on GCP here.  Load up environment variables from 
-    // Secrets Manager
-    const projectId = await gcpMetadata.project('project-id');
-
-    const base64Vars = ['GOOGLE_APPLICATION_JSON'];
-
-    const client = new SecretManagerServiceClient();
-
-    const parent = `projects/${projectId}`;
-
-    const [secrets] = await client.listSecrets({
-      parent: parent,
-    });
-
-    for (let secret of secrets) {
-      const path = secret.name.split('/');
-      const envVar = path[path.length > 0 ? path.length - 1 : 0];
-      process.env[envVar] = await getSecret(client, secret.name, base64Vars.indexOf(envVar) !== -1);
-    }
-  }
-
-  startServer();
-})();
