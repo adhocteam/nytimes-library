@@ -133,6 +133,7 @@
   position: fixed;
   background: none;
   border: none;
+  text-indent: -1000rem; // hide from sighted users
 
   transition: all .1s ease-in 0s;
   background-color: rgba(0,0,0,0);
