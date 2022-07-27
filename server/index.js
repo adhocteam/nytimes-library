@@ -1,22 +1,6 @@
-const getSecret = async (client, projectId, name, isBase64 = false) => {
-  const path = `projects/${projectId}/secrets/${name}`;
-
-  const parent = `projects/${projectId}`;
-
-  const [secrets] = await client.listSecrets({
-    parent: parent,
-  });
-
-  secrets.forEach(secret => {
-    const policy = secret.replication.userManaged
-      ? secret.replication.userManaged
-      : secret.replication.automatic;
-    console.log(`${secret.name} (${JSON.stringify(policy)})`);
-    console.log(secret, secret.payload);
-  });
-
+const getSecret = async (client, name, isBase64 = false) => {
   const [version] = await client.accessSecretVersion({
-    name: `${path}/versions/latest`,
+    name: `${name}/versions/latest`,
   });
 
   const payload = version.payload.data.toString('utf8');
@@ -143,21 +127,21 @@ const startServer = () => {
     // Secrets Manager
     const projectId = await gcpMetadata.project('project-id');
 
-    // Get Variable
-    const client = new SecretManagerServiceClient()
+    const base64Vars = ['GOOGLE_APPLICATION_JSON'];
 
-    process.env.APPROVED_DOMAINS = await getSecret(client, projectId, 'APPROVED_DOMAINS', false);
-    process.env.DRIVE_ID = await getSecret(client, projectId, 'DRIVE_ID', false);
-    process.env.DRIVE_TYPE = await getSecret(client, projectId, 'DRIVE_TYPE', false);
-    process.env.EXCLUDE_FOLDERS = await getSecret(client, projectId, 'EXCLUDE_FOLDERS', false);
-    process.env.GCP_PROJECT_ID = await getSecret(client, projectId, 'GCP_PROJECT_ID', false);
-    process.env.NODE_ENV = await getSecret(client, projectId, 'NODE_ENV', false);
-    process.env.REDIRECT_URL = await getSecret(client, projectId, 'REDIRECT_URL', false);
-    process.env.GOOGLE_APPLICATION_JSON = await getSecret(client, projectId, 'GOOGLE_APPLICATION_JSON', true);
-    process.env.GOOGLE_APPLICATION_CREDENTIALS = await getSecret(client, projectId, 'GOOGLE_APPLICATION_CREDENTIALS', false);
-    process.env.GOOGLE_CLIENT_ID = await getSecret(client, projectId, 'GOOGLE_CLIENT_ID', false);
-    process.env.GOOGLE_CLIENT_SECRET = await getSecret(client, projectId, 'GOOGLE_CLIENT_SECRET', false);
-    process.env.SESSION_SECRET = await getSecret(client, projectId, 'SESSION_SECRET', false);
+    const client = new SecretManagerServiceClient();
+
+    const parent = `projects/${projectId}`;
+
+    const [secrets] = await client.listSecrets({
+      parent: parent,
+    });
+
+    for (let secret of secrets) {
+      const path = secret.name.split('/');
+      const envVar = path[path.length > 0 ? path.length - 1 : 0];
+      process.env[envVar] = await getSecret(client, secret.name, base64Vars.indexOf(envVar) !== -1);
+    }
   }
 
   startServer();
