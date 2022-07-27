@@ -29,7 +29,7 @@ const log = require('./logger');
 
     for (let secret of secrets) {
       const path = secret.name.split('/');
-      const envVar = path[path.length > 0 ? path.length - 1 : 0];
+      const envVar = path[path.length - 1];
 
       log.info(`Loading environment variable ${envVar}`);
 
