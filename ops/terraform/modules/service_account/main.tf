@@ -19,24 +19,25 @@ resource "google_project_iam_binding" "main" {
   ]
 }
 
-resource "google_secret_manager_secret" "main_publickey" {
-  count     = var.use_secretsmanager ? 1 : 0
-  secret_id = "${var.service_account_id}-public-key"
-  replication {
-    automatic = true
-  }
+data "google_app_engine_default_service_account" "default" {
 }
 
-resource "google_secret_manager_secret_version" "main_publickey" {
-  count  = var.use_secretsmanager ? 1 : 0
-  secret = google_secret_manager_secret.main_publickey[0].id
-
-  secret_data = google_service_account_key.main[0].public_key
+# Grant the app engine default account the ability to access secret manager
+resource "google_project_iam_binding" "main_secretmanager" {
+  project = var.project_id
+  role    = "roles/secretmanager.secretAccessor"
+  members = [
+    "serviceAccount:${data.google_app_engine_default_service_account.default.email}",
+    "serviceAccount:${google_service_account.main.email}"
+  ]
 }
 
 resource "google_secret_manager_secret" "main_privatekey" {
   count     = var.use_secretsmanager ? 1 : 0
-  secret_id = "${var.service_account_id}-private-key"
+  secret_id = "GOOGLE_APPLICATION_JSON"
+  labels = {
+    encoded = "base64"
+  }
   replication {
     automatic = true
   }
