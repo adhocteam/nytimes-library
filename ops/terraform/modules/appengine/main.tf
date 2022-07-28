@@ -10,5 +10,3 @@ resource "google_app_engine_application" "app" {
   database_type = var.database_type
   location_id   = local.location_id
 }
-
-

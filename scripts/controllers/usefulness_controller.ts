@@ -1,23 +1,23 @@
 import { Controller } from '@hotwired/stimulus'
-
+import { UsefulnessReason } from '../common/enum'
 class UsefulnessController extends Controller {
-    vote: String | null
     launchModal: String | null
-    
+    reasonTargets: any
+    usefulYesTarget: any
+    usefulNoTarget: any
+
     initialize() {
-      this.vote = null
       this.launchModal = ''
     }
   
     static get targets() {
-      return []
+      return ['reason', 'usefulYes', 'usefulNo']
     }
   
     handleVote(event: any) {
       this.launchModal = event.params.launchModal
-      this.vote = this.launchModal === 'useful-yes' ? 'yes' : 'no'
-      const modal = document.querySelector(`#${this.launchModal}`)
-      modal.classList.add('active')
+
+      this[`${this.launchModal}Target`].classList.add('active')
     }
   
     handleCancel() {
@@ -26,9 +26,12 @@ class UsefulnessController extends Controller {
   
     handleSubmit() {
       const documentId = this.data.get('documentId')
-      const location = this.vote === 'yes' ? '/api/upvote' : '/api/downvote'
-      const checked: HTMLInputElement = document.querySelector('input[name="reason"]:checked')
-      const reason = checked ? checked.value : ''
+      const location = this.launchModal === 'usefulYes' ? '/api/upvote' : '/api/downvote'
+
+      const checkedRadios = this.reasonTargets.filter(radio => radio.checked)
+      const reasonValue = checkedRadios.length > 0 ? checkedRadios[0].value : 0
+      const reason = UsefulnessReason[reasonValue]
+
       this.post(location, {
         id: documentId,
         reason
@@ -37,8 +40,7 @@ class UsefulnessController extends Controller {
     }
   
     closeModal() {
-      const modal = document.querySelector(`#${this.launchModal}`)
-      modal.classList.remove('active')
+      this[`${this.launchModal}Target`].classList.remove('active')
       this.launchModal = ''
     }
   
