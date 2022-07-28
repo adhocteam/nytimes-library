@@ -2,7 +2,7 @@
   "name": "library",
   "version": "1.4.2",
   "description": "A collaborative newsroom documentation site, powered by Google Docs.",
-  "main": "server/index.js",
+  "main": "server/bootstrap.js",
   "dependencies": {
     "@google-cloud/datastore": "^6.6.2",
     "@google-cloud/secret-manager": "^4.0.0",
@@ -63,10 +63,10 @@
     "webpack-cli": "^4.9.2"
   },
   "scripts": {
-    "start": "node -r dotenv/config server/index.js",
+    "start": "node -r dotenv/config server/bootstrap.js",
     "build": "npm run webpack",
-    "debug": "node -r dotenv/config --inspect --inspect-brk server/index.js",
-    "watch": "npm run build && concurrently \"nodemon --inspect=0.0.0.0 -r dotenv/config -e js,ejs server/index.js\" \"nodemon -e scss,ts,js --watch styles --watch custom/styles --watch scripts -x npm run build\"",
+    "debug": "node -r dotenv/config --inspect --inspect-brk server/bootstrap.js",
+    "watch": "npm run build && concurrently \"nodemon --inspect=0.0.0.0 -r dotenv/config -e js,ejs server/bootstrap.js\" \"nodemon -e scss,ts,js --watch styles --watch custom/styles --watch scripts -x npm run build\"",
     "test": "NODE_ENV=test PORT=3001 jest --setupFiles dotenv/config --setupTestFrameworkScriptFile='./test/utils/bootstrap.js' --forceExit",
     "test:cover": "NODE_ENV=test PORT=3001 nyc --include=server/** --reporter=html --reporter=text jest test/**/*.test.js --setupFiles dotenv/config --setupTestFrameworkScriptFile='./test/utils/bootstrap.js' --forceExit",
     "lint": "eslint ./server",
