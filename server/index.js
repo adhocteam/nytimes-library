@@ -34,7 +34,7 @@ const log = require('./logger');
 
       log.info(`Loading environment variable ${envVar}`);
 
-      process.env[envVar] = await getSecret(client, secret.name, base64Vars.indexOf(envVar) !== -1);
+      process.env[envVar] = await getSecret(client, secret.name, secret.labels['encoded'] == 'base64');
     }
 
     log.info('Environment variables loaded...')
