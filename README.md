@@ -117,7 +117,7 @@ The following are the available environment variables and its intended purpose:
 - `LIST_UPDATE_DELAY` - Set the frequency of the file tree update.  The default value is 15 if not set.
 - `NODE_ENV` - Currently running node environment.  This can be `development`, `test` or `production`.
   - `development` - Does not use Google to authenticate user, instead it uses the email specified in the `TEST_EMAIL` environment variable or `test@example.com`.  It will look for the `./auth.json` file if the `GOOGLE_APPLICATION_CREDENTIALS` is not set.  It sets the log level to `DEBUG`.  This setting is intended for local development.
-  - `test` - It sets the log level to `INFO`. Sets [winston](https://github.com/winstonjs/winston) as the logger.
+  - `test` - It sets the log level to `INFO`. Sets [winston](https://github.com/winstonjs/winston) as the logger. This setting is intended for unit tests.
   - `production` - It sets the log level to `INFO`.
 - `OAUTH_STRATEGY` - Sets OAuth strategy and can be either `Slack` or `google`.  The default value is `google` if not set.
 - `PORT` - Port Express.js is listening on.  The default value is 3000 if not set.
