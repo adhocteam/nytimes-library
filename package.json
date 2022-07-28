@@ -70,6 +70,7 @@
     "test": "NODE_ENV=test PORT=3001 jest --setupFiles dotenv/config --setupTestFrameworkScriptFile='./test/utils/bootstrap.js' --forceExit",
     "test:cover": "NODE_ENV=test PORT=3001 nyc --include=server/** --reporter=html --reporter=text jest test/**/*.test.js --setupFiles dotenv/config --setupTestFrameworkScriptFile='./test/utils/bootstrap.js' --forceExit",
     "lint": "eslint ./server",
+    "lint:fix": "eslint ./server --fix",
     "gcp-build": "./bin/install_customizations && npm run build && ./bin/update_gae_pkg",
     "webpack": "npx webpack --mode production"
   },
