@@ -97,6 +97,20 @@ The original NYTimes Library was built with [`node-sass`](https://github.com/sas
 
 Previously, the npm build scripts used `node-sass` and `--include-paths` command line parameters where the earlier paths took precedence over later paths in the command.  This is different from the Webpack `sass-loader` which uses the concept of entry points and imports the SASS references as indicated in the entry point files.  Due to this difference, new custom `errors.scss` and `style.scss` were created to correctly import the files in correct order.
 
+### Linting with ESLint
+
+To run eslint to check the server code base, run:
+
+```
+npm run lint
+```
+
+To autofix errors, run:
+
+```
+npm run lint:fix
+```
+
 ### Environment Variables Listing
 
 The following are the available environment variables and its intended purpose:
