@@ -1,56 +1,52 @@
 const log = require('./logger');
 
 (async () => {
-  const gcpMetadata = require('gcp-metadata');
-  const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
+  const gcpMetadata = require('gcp-metadata')
+  const {SecretManagerServiceClient} = require('@google-cloud/secret-manager')
 
   // GCP Metadata is only available to the deployed instance.
   // Running locally, you would still use the .env file.
-  const isDeployedInstance = await gcpMetadata.isAvailable();
+  const isDeployedInstance = await gcpMetadata.isAvailable()
 
   if (isDeployedInstance) {
-    log.info('App Engine deployed instance detected...');
+    log.info('App Engine deployed instance detected...')
 
-    // We're on GCP here.  Load up environment variables from 
+    // We're on GCP here.  Load up environment variables from
     // Secrets Manager
-    const projectId = await gcpMetadata.project('project-id');
+    const projectId = await gcpMetadata.project('project-id')
 
-    log.info(`Loading environment variables for project: ${projectId}`);
+    log.info(`Loading environment variables for project: ${projectId}`)
 
-    // List of environment variables stored in base64-encoded format, rather than raw strings
-    const base64Vars = ['GOOGLE_APPLICATION_JSON'];
+    const client = new SecretManagerServiceClient()
 
-    const client = new SecretManagerServiceClient();
-
-    const parent = `projects/${projectId}`;
+    const parent = `projects/${projectId}`
 
     const [secrets] = await client.listSecrets({
-      parent: parent,
-    });
+      parent: parent
+    })
 
-    for (let secret of secrets) {
-      const path = secret.name.split('/');
-      const envVar = path[path.length - 1];
+    for (const secret of secrets) {
+      const path = secret.name.split('/')
+      const envVar = path[path.length - 1]
 
-      log.info(`Loading environment variable ${envVar}`);
+      log.info(`Loading environment variable ${envVar}`)
 
-      process.env[envVar] = await getSecret(client, secret.name,  secret.labels['encoded'] == 'base64');
+      process.env[envVar] = await getSecret(client, secret.name, secret.labels.encoded === 'base64')
     }
 
     log.info('Environment variables loaded...')
   }
 
-  require('./index');
-})();
-
+  require('./index')
+})()
 
 // Gets secrets from the GCP Secret Manager
 const getSecret = async (client, name, isBase64 = false) => {
   const [version] = await client.accessSecretVersion({
-    name: `${name}/versions/latest`,
-  });
+    name: `${name}/versions/latest`
+  })
 
-  const payload = version.payload.data.toString('utf8');
+  const payload = version.payload.data.toString('utf8')
 
-  return isBase64 ? Buffer.from(payload, 'base64') : payload;
+  return isBase64 ? Buffer.from(payload, 'base64') : payload
 }
