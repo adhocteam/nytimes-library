@@ -9,7 +9,6 @@ class SearchController extends Controller {
   searchInputTarget: HTMLInputElement
   listTarget: HTMLElement
 
-
   connect() {
     this.keypress = false
 
@@ -23,7 +22,7 @@ class SearchController extends Controller {
           method: 'GET',
         }
       )
-      .then((response) =>{
+      .then((response) => {
           if (response.status !== 200) return; // if request fails, continue with old listing
           return response.json()
         }
@@ -69,7 +68,7 @@ class SearchController extends Controller {
     }))
   }
 
-  #getFilenameStorage = ()=>  {
+  #getFilenameStorage = () =>  {
     return JSON.parse(localStorage.getItem('filenames'))
   }
 
