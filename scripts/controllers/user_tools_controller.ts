@@ -73,7 +73,7 @@ class UserTools extends Controller {
 
     if (!data || data.length == 0) {
       if (elementAttributes.emptyText) {
-        this.popupTarget.insertAdjacentHTML('beforeend', "<p>" + elementAttributes.emptyText + "</p>");
+        this.popupTarget.insertAdjacentHTML('beforeend', `<p>${elementAttributes.emptyText}</p>`);
       }
       return;
     }
@@ -82,26 +82,25 @@ class UserTools extends Controller {
       var doc = viewedDocument.doc;
       var folder = (doc.folder || {}).prettyName || ''; // lets not try to show a folder if there isn't one
       var path = doc.path ? doc.path : '#';
-      return [
-        '<li>',
-          '<a href="' + path + '">',
-            '<p class="docs-title">' + doc.prettyName + '</p>',
-            '<p class="docs-attr">',
-              '<span class="docs-folder">' + folder + '</span>',
-              '<span class="timestamp">(' + viewedDocument.lastViewed + ')</span>',
-            '</p>',
-          '</a>',
-        '</li>'
-        // use .join() to turn to html string
-        ].join('')
+      return `
+        <li>
+          <a href="${path}">
+            <p class="docs-title">${doc.prettyName}</p>
+            <p class="docs-attr">
+              <span class="docs-folder">${folder}</span>
+              <span class="timestamp">${viewedDocument.lastViewed}</span>
+            </p>
+          </a>
+        </li>
+      `
     });
 
     var className = elementAttributes.name.toLowerCase().replace(' ', '-') + '-content';
 
-    var fullSection = [
-      "<h3>" + elementAttributes.name + "</h3>",
-      "<ul class='" + className + "'>" + items.join('') + "</ul>"
-    ].join('');
+    var fullSection = `
+      <h3>${elementAttributes.name}</h3>
+      <ul class='${className}'>${items.join('')}</ul>
+    `;
 
      // perform all the DOM manipulation as a single operation
      this.popupTarget.insertAdjacentHTML('beforeend', fullSection);
