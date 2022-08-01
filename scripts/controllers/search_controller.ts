@@ -68,7 +68,7 @@ class SearchController extends Controller {
     }))
   }
 
-  #getFilenameStorage = ()=>  {
+  #getFilenameStorage = () =>  {
     return JSON.parse(localStorage.getItem('filenames'))
   }
 
