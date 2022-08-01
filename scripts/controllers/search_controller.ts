@@ -23,7 +23,7 @@ class SearchController extends Controller {
           method: 'GET',
         }
       )
-      .then((response) =>{
+      .then((response) => {
           if (response.status !== 200) return; // if request fails, continue with old listing
           return response.json()
         }
