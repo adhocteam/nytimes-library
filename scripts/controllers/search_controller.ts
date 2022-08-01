@@ -9,7 +9,6 @@ class SearchController extends Controller {
   searchInputTarget: HTMLInputElement
   listTarget: HTMLElement
 
-
   connect() {
     this.keypress = false
 
