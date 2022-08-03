@@ -2,13 +2,13 @@
 import { Controller } from '@hotwired/stimulus'
 
 class SearchFilterController extends Controller {
-  backdropTarget: any;
-  filteredByLabelTarget: any;
-  typesTarget: any;
-  modalTarget: any;
-  modalBodyTarget: any;
-  checkboxTargets: any;
-  typesDescTarget: any;
+  backdropTarget: HTMLElement;
+  filteredByLabelTarget: HTMLElement;
+  typesTarget: HTMLInputElement;
+  modalTarget: HTMLElement;
+  modalBodyTarget: HTMLElement;
+  checkboxTargets: HTMLInputElement[];
+  typesDescTarget: HTMLElement;
   selectedTypes: String[] = [];
 
   static targets = ['backdrop', 'filteredByLabel', 'types', 'modal', 'modalBody', 'checkbox', 'typesDesc'];
