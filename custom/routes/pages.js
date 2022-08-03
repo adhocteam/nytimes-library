@@ -24,7 +24,7 @@ const pages = getTemplates('pages')
 
 const driveType = process.env.DRIVE_TYPE
 
-// express-promsie-router will call next() if the return value is 'next'.
+// express-promise-router will call next() if the return value is 'next'.
 async function handlePage(req, res) {
   const page = req.params.page || 'index'
   if (!pages.has(page)) return 'next'
