@@ -1,6 +1,6 @@
 import { Application } from "@hotwired/stimulus"
 import UsefulnessController from './controllers/usefulness_controller'
-import SearchFilterController from './controllers/searchfilter_controller'
+import SearchFilterController from './controllers/search_filter_controller'
 
 // Import controllers here
 // Example:
