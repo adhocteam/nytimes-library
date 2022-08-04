@@ -1,8 +1,8 @@
 name: Deploy Content Library to Google App Engine (GAE)
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
