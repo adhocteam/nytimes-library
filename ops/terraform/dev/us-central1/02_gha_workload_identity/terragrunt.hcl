@@ -24,11 +24,12 @@ locals {
   resource_prefix = "nytimes-library"
   project_id      = read_terragrunt_config(find_in_parent_folders("account.hcl"))
   repository_name = "adhocteam/nytimes-library"
+  identity_pool_name = "${local.resource_prefix}-${local.environment}-gha"
 }
 
 inputs = {
-  identity_pool_id           = "${local.resource_prefix}-${local.environment}-github-actions"
-  identity_pool_display_name = "${local.resource_prefix}-${local.environment}-github-actions"
+  identity_pool_id           = local.identity_pool_name
+  identity_pool_display_name = local.identity_pool_name
   identity_pool_description  = "Identity pool used for Github actions authentication"
 
   identity_provider_attribute_mapping = {
@@ -39,6 +40,6 @@ inputs = {
   }
 
   oidc_issuer_uri                    = "https://token.actions.githubusercontent.com"
-  service_account_bind_email         = dependency.service_account.outputs.gha_service_account_email
+  service_account_bind_email         = dependency.service_account.outputs.gha_service_account_id
   service_account_bind_member_string = "principalSet://iam.googleapis.com/%%%%/attribute.repository/${local.repository_name}"
 }

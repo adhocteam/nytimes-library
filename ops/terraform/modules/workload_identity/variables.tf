@@ -1,7 +1,3 @@
-variable "project_id" {
-  description = "ID of the project. Required."
-  type        = string
-}
 variable "identity_pool_id" {
   description = "The ID of the workload identity pool. Required"
   type        = string

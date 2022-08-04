@@ -22,15 +22,17 @@ resource "google_iam_workload_identity_pool_provider" "main" {
   }
 
   dynamic "oidc" {
-    for_each          = var.oidc_issuer_uri != null ? [true] : []
-    allowed_audiences = var.oidc_allowed_audiences != null ? [for audience in var.oidc_allowed_audiences : audience] : []
-    issuer_uri        = var.oidc_issuer_uri
+    for_each = var.oidc_issuer_uri != null ? [true] : []
+    content {
+      allowed_audiences = var.oidc_allowed_audiences != null ? [for audience in var.oidc_allowed_audiences : audience] : []
+      issuer_uri        = var.oidc_issuer_uri
+    }
   }
 }
 
-resource "google_project_iam_member" "main" {
-  count   = var.service_account_bind_email != null ? 1 : 0
-  project = var.project_id
-  role    = "roles/iam.workloadIdentityUser"
-  member  = replace(var.service_account_bind_member_string, "%%%%", google_iam_workload_identity_pool.main.id)
+resource "google_service_account_iam_binding" "main" {
+  count              = var.service_account_bind_email != null ? 1 : 0
+  service_account_id = var.service_account_bind_email
+  role               = "roles/iam.workloadIdentityUser"
+  members            = [replace(var.service_account_bind_member_string, "%%%%", google_iam_workload_identity_pool.main.name)]
 }
