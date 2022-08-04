@@ -25,17 +25,17 @@ locals {
 }
 
 inputs = {
-  identity_pool_id = "${local.resource_prefix}-${local.environment}-github-actions"
+  identity_pool_id           = "${local.resource_prefix}-${local.environment}-github-actions"
   identity_pool_display_name = "${local.resource_prefix}-${local.environment}-github-actions"
   identity_pool_description  = "Identity pool used for Github actions authentication"
 
   identity_provider_attribute_mapping = {
-    "google.subject" = "assertion.sub"
-    "attribute.actor" = "assertion.actor"
-    "attribute.repository" = "assertion.repository"
+    "google.subject"             = "assertion.sub"
+    "attribute.actor"            = "assertion.actor"
+    "attribute.repository"       = "assertion.repository"
     "attribute.repository_owner" = "assertion.repository_owner"
   }
 
-  oidc_issuer_uri = "https://token.actions.githubusercontent.com"
+  oidc_issuer_uri            = "https://token.actions.githubusercontent.com"
   service_account_bind_email = dependency.service_account.outputs.gha_service_account_email
 }
