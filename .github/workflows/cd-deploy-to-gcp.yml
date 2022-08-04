@@ -1,8 +1,8 @@
 name: Deploy Content Library to Google App Engine (GAE)
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
 jobs:
   deploy:
     permissions:
@@ -20,10 +20,10 @@ jobs:
             PROJECT_ID: DEV_PROJECT_ID
             WORKLOAD_IDENTITY_PROVIDER_ID: DEV_WORKLOAD_IDENTITY_PROVIDER_ID
             WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL: DEV_WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL
-          # - environment: prod
-          #   PROJECT_ID: PROD_PROJECT_ID
-          #   WORKLOAD_IDENTITY_PROVIDER_ID: PROD_WORKLOAD_IDENTITY_PROVIDER_ID
-          #   WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL: PROD_WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL
+          - environment: prod
+            PROJECT_ID: PROD_PROJECT_ID
+            WORKLOAD_IDENTITY_PROVIDER_ID: PROD_WORKLOAD_IDENTITY_PROVIDER_ID
+            WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL: PROD_WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL
     steps:
       - name: Checking Repository
         uses: actions/checkout@v3
