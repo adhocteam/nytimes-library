@@ -12,6 +12,16 @@ resource "google_service_account" "gha" {
   description  = "For use with Github actions"
 }
 
+# Grant the GHA service account the app engine deployer role
+
+resource "google_project_iam_member" "gha" {
+  count   = var.create_gha ? 1 : 0
+  project = var.project_id
+  role    = "roles/appengine.deployer"
+  member  = "serviceAccount:${google_service_account.gha[0].email}"
+}
+
+
 resource "google_service_account_key" "main" {
   count              = var.use_secretsmanager ? 1 : 0
   service_account_id = google_service_account.main.name
