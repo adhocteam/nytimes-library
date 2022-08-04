@@ -11,23 +11,30 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        environment: [dev, prod]
+        environment: [dev]
         include:
           - environment: dev
             PROJECT_ID: DEV_PROJECT_ID
-            GCP_SA_KEY: DEV_GCP_SA_KEY
-          - environment: prod
-            PROJECT_ID: PROD_PROJECT_ID
-            GCP_SA_KEY: PROD_GCP_SA_KEY
+            WORKLOAD_IDENTITY_PROVIDER_ID: DEV_WORKLOAD_IDENTITY_PROVIDER_ID
+            WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL: DEV_WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL
+          # - environment: prod
+          #   PROJECT_ID: PROD_PROJECT_ID
+          #   WORKLOAD_IDENTITY_PROVIDER_ID: PROD_WORKLOAD_IDENTITY_PROVIDER_ID
+          #   WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL: PROD_WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL
     steps:
       - name: Checking Repository
         uses: actions/checkout@v2
 
+      - name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0.8.0'
+        with:
+          workload_identity_provider: '${{ secrets[matrix.WORKLOAD_IDENTITY_PROVIDER_ID] }}'
+          service_account: '${{ secrets[matrix.WORKLOAD_IDENTITY_SERVICE_ACCOUNT_EMAIL] }}'
+
       - name: Setup cloud SDK with Dev project info
-        uses: 'google-github-actions/setup-gcloud@v0'
+        uses: 'google-github-actions/setup-gcloud@v0.6.0'
         with:
           project_id: '${{ secrets[matrix.PROJECT_ID] }}'
-          service_account_key: '${{ secrets[matrix.GCP_SA_KEY] }}'
 
       - name: Deploy to dev GAE project
         run: 'gcloud app deploy app.yaml --quiet --version ${{ env.TAG }}'
