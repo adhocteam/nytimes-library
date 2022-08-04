@@ -38,7 +38,7 @@ inputs = {
     "attribute.repository_owner" = "assertion.repository_owner"
   }
 
-  oidc_issuer_uri            = "https://token.actions.githubusercontent.com"
-  service_account_bind_email = dependency.service_account.outputs.gha_service_account_email
+  oidc_issuer_uri                    = "https://token.actions.githubusercontent.com"
+  service_account_bind_email         = dependency.service_account.outputs.gha_service_account_email
   service_account_bind_member_string = "principalSet://iam.googleapis.com/%%%%/attribute.repository/${local.repository_name}"
 }
