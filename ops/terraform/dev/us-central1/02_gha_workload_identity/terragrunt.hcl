@@ -20,10 +20,10 @@ dependency "service_account" {
 }
 
 locals {
-  environment     = "dev"
-  resource_prefix = "nytimes-library"
-  project_id      = read_terragrunt_config(find_in_parent_folders("account.hcl"))
-  repository_name = "adhocteam/nytimes-library"
+  environment        = "dev"
+  resource_prefix    = "nytimes-library"
+  project_id         = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+  repository_name    = "adhocteam/nytimes-library"
   identity_pool_name = "${local.resource_prefix}-${local.environment}-gha"
 }
 
