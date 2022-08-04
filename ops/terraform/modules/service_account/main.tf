@@ -5,6 +5,13 @@ resource "google_service_account" "main" {
 }
 
 
+resource "google_service_account" "gha" {
+  count        = var.create_gha ? 1 : 0
+  account_id   = var.service_account_id
+  display_name = "${var.service_account_display_name}-github-actions"
+  description  = "For use with Github actions"
+}
+
 resource "google_service_account_key" "main" {
   count              = var.use_secretsmanager ? 1 : 0
   service_account_id = google_service_account.main.name

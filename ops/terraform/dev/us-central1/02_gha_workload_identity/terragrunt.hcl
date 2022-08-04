@@ -1,0 +1,41 @@
+# Create GHA workload identity pool and provider for hooking GHA into our GCP environment
+terraform {
+  source = "${get_parent_terragrunt_dir()}//modules//workload_identity"
+}
+
+include {
+  path = find_in_parent_folders()
+}
+
+# Set a dependency for the GCP APIs being enabled, which will prevent this module from running too early
+dependency "library_service_api" {
+  config_path  = "../00_library_service_api"
+  skip_outputs = true
+}
+
+dependency "service_account" {
+  config_path  = "../01_service_account"
+  skip_outputs = false
+}
+
+locals {
+  environment     = "dev"
+  resource_prefix = "nytimes-library"
+  project_id      = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+}
+
+inputs = {
+  identity_pool_id = "${local.resource_prefix}-${local.environment}-github-actions"
+  identity_pool_display_name = "${local.resource_prefix}-${local.environment}-github-actions"
+  identity_pool_description  = "Identity pool used for Github actions authentication"
+
+  identity_provider_attribute_mapping = {
+    "google.subject" = "assertion.sub"
+    "attribute.actor" = "assertion.actor"
+    "attribute.repository" = "assertion.repository"
+    "attribute.repository_owner" = "assertion.repository_owner"
+  }
+
+  oidc_issuer_uri = "https://token.actions.githubusercontent.com"
+  service_account_bind_email = dependency.service_account.outputs.gha_service_account_email
+}
