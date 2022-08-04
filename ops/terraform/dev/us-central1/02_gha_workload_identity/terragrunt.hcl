@@ -1,4 +1,5 @@
 # Create GHA workload identity pool and provider for hooking GHA into our GCP environment
+# Depends on the service account module with create_gha set to true
 terraform {
   source = "${get_parent_terragrunt_dir()}//modules//workload_identity"
 }
@@ -22,6 +23,7 @@ locals {
   environment     = "dev"
   resource_prefix = "nytimes-library"
   project_id      = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+  repository_name = "adhocteam/nytimes-library"
 }
 
 inputs = {
@@ -38,5 +40,5 @@ inputs = {
 
   oidc_issuer_uri            = "https://token.actions.githubusercontent.com"
   service_account_bind_email = dependency.service_account.outputs.gha_service_account_email
-
+  service_account_bind_member_string = "principalSet://iam.googleapis.com/%%%%/attribute.repository/${local.repository_name}"
 }

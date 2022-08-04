@@ -28,3 +28,9 @@ resource "google_iam_workload_identity_pool_provider" "main" {
   }
 }
 
+resource "google_project_iam_member" "main" {
+  count   = var.service_account_bind_email != null ? 1 : 0
+  project = var.project_id
+  role    = "roles/iam.workloadIdentityUser"
+  member  = replace(var.service_account_bind_member_string, "%%%%", google_iam_workload_identity_pool.main.id)
+}
