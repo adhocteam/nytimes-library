@@ -28,6 +28,13 @@ resource "google_project_iam_member" "gha_appengine" {
   member  = "serviceAccount:${google_service_account.gha[0].email}"
 }
 
+resource "google_project_iam_member" "gha_appengine_service" {
+  count   = var.create_gha ? 1 : 0
+  project = var.project_id
+  role    = "roles/appengine.serviceAdmin"
+  member  = "serviceAccount:${google_service_account.gha[0].email}"
+}
+
 # Grants GHA the ability to admin GCS buckets
 resource "google_project_iam_member" "gha_gcs" {
   count   = var.create_gha ? 1 : 0
