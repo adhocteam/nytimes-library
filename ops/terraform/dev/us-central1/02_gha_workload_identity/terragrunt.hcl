@@ -38,4 +38,5 @@ inputs = {
 
   oidc_issuer_uri            = "https://token.actions.githubusercontent.com"
   service_account_bind_email = dependency.service_account.outputs.gha_service_account_email
+
 }
