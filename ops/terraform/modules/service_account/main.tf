@@ -1,3 +1,7 @@
+
+data "google_app_engine_default_service_account" "default" {
+}
+
 resource "google_service_account" "main" {
   account_id   = var.service_account_id
   display_name = var.service_account_display_name
@@ -59,9 +63,6 @@ resource "google_project_iam_binding" "main" {
   members = [
     "serviceAccount:${google_service_account.main.email}"
   ]
-}
-
-data "google_app_engine_default_service_account" "default" {
 }
 
 # Grant the app engine default account the ability to access secret manager
