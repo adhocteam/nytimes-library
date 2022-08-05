@@ -25,15 +25,22 @@ const log = require('./logger');
       parent: parent
     })
 
+    let waiter = [];
+
     for (const secret of secrets) {
       const path = secret.name.split('/')
       const envVar = path[path.length - 1]
 
       log.info(`Loading environment variable ${envVar}`)
 
-      process.env[envVar] = await getSecret(client, secret.name, secret.labels.encoded === 'base64')
+      waiter.push(
+        getSecret(client, secret.name, secret.labels.encoded === 'base64')
+          .then(value => process.env[envVar] = value)
+          .then(_ => log.info(`Loaded environment variable ${envVar}`)))
     }
 
+    await Promise.all(waiter)
+    
     log.info('Environment variables loaded...')
   }
 
