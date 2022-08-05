@@ -27,13 +27,6 @@ class UserTools extends Controller {
       var userId = (data || {}).analyticsUserId;
       if (userId) {
         window['ga']('set', 'userId', userId)
-
-        // We don't use this feature
-        // if(window.location.pathname === '/') {
-        //   $(document).ready(function() {
-        //     personalizeHomepage(userId)
-        //   })
-        // }
       }
       window['ga']('send', 'pageview');
       this.#renderUserInfo(data);
