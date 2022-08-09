@@ -79,7 +79,8 @@ async function handlePage(req, res) {
           modifiedAt: category.modifiedTime,
           createdAt: category.createdTime,
           id: category.id,
-          resourceType: category.resourceType
+          resourceType: category.resourceType,
+          fileTypeNames
         })))
       }
     })
