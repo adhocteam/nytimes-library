@@ -31,7 +31,7 @@
           </div>
           <% }) %>
         <% }  else { %>
-          <h3 class="search-kicker"><%- template('search.results.none.kicker', locals.q) %></h3>
+          <h3 class="search-kicker"><%- template('search.results.none.kicker', locals.q || '') %></h3>
           <p><%- template('search.results.none.suggestion') %></p>
         <% } %>
       </div>
