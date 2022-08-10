@@ -34,6 +34,10 @@
             Filter your search?
           </header>
           <p>Filter by File Type</p>
+          <div class="filetype-buttons">
+            <button data-action="click->searchfilter#selectAll" class="button">All</button>
+            <button data-action="click->searchfilter#selectNone" class="button">None</button>
+          </div>
           <div class="filetype-checkbox-container">
             <div class="filetype-column">
               <div><input type="checkbox" id="select-docs-checkbox" data-searchfilter-target="allDocs"

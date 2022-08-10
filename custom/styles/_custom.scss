@@ -172,6 +172,15 @@
   }
 }
 
+.filetype-buttons {
+  margin-bottom: 1rem;
+
+  button {
+    width: 3.2rem;
+    font-size: 0.8rem;
+  }
+}
+
 .filetype-checkbox-container {
   display: flex; 
   flex-direction: row;

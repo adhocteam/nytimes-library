@@ -58,11 +58,15 @@ class SearchFilterController extends Controller {
   selectAll(): void {
     this.checkboxTargets.forEach(target => target.checked = true);
     this.selectedTypes = this.checkboxTargets.map(x => x.value);
+    this.allDocsTarget.checked = true;
+    this.allImagesTarget.checked = true;
   }
 
   selectNone(): void {
     this.selectedTypes = [];
     this.checkboxTargets.forEach(target => target.checked = false);
+    this.allDocsTarget.checked = false;
+    this.allImagesTarget.checked = false;
   }
 
   docsHandler(): void {
