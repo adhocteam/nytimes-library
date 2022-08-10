@@ -24,7 +24,24 @@ class SearchFilterController extends Controller {
     'allDocs', 'allImages'];
 
   connect(): void {
+    this.loadSearchFromURL();
     this.updateHiddenField();
+  }
+
+  loadSearchFromURL(): void {
+    const searchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(searchParams);
+
+    if (!params || !params.types) return;
+
+    this.selectedTypes = params.types.split(',');
+    this.checkboxTargets.forEach(target => target.checked = this.selectedTypes.indexOf(target.value) !== -1);
+
+    this.filteredByLabelTarget.innerHTML = this.selectedTypes.length ? 'Filtered by: ' : '';
+    this.typesDescTarget.innerHTML = this.selectedTypes.join(', ');
+
+    this.docsHandler();
+    this.imagesHandler();
   }
 
   summonModal(): void {
