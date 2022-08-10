@@ -19,10 +19,20 @@
 
 .button.btn-homepage {
   color: #000;
+  margin: 10px 0 0 0;
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid #404040;
+  border-radius: 0;
+  color: black;
+  box-shadow: 2.5px 2.5px 0px -1px $gray-25;
+  padding: 5px 12px;
 }
 
 .button.btn-homepage:hover {
-  color: #fff;
+  color: #000;
+  background-color: $gray-60;
+  box-shadow: 2.5px 2.5px 0px -1px $gray-25;
 }
 
 #search-box {
