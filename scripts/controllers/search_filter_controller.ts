@@ -10,6 +10,8 @@ class SearchFilterController extends Controller {
   checkboxTargets: HTMLInputElement[];
   typesDescTarget: HTMLElement;
   selectedTypes: String[] = [];
+  allDocsTarget: HTMLInputElement;
+  allImagesTarget: HTMLInputElement;
 
   documentTypes = ['docs', 'pdf', 'slides'];
 
@@ -17,7 +19,9 @@ class SearchFilterController extends Controller {
 
   miscTypes = ['sheets', 'shortcut', 'video'];
 
-  static targets = ['backdrop', 'filteredByLabel', 'types', 'modal', 'modalBody', 'checkbox', 'typesDesc'];
+  static targets = ['backdrop', 'filteredByLabel', 'types',
+    'modal', 'modalBody', 'checkbox', 'typesDesc',
+    'allDocs', 'allImages'];
 
   connect(): void {
     this.updateHiddenField();
@@ -56,19 +60,25 @@ class SearchFilterController extends Controller {
     this.selectedTypes = this.checkboxTargets.map(x => x.value);
   }
 
-  selectDocuments(): void {
-    this.selectedTypes = this.documentTypes;
-    this.checkboxTargets.forEach(target => target.checked = this.documentTypes.indexOf(target.value) !== -1);
-  }
-
-  selectImages(): void {
-    this.selectedTypes = this.imageTypes;
-    this.checkboxTargets.forEach(target => target.checked = this.imageTypes.indexOf(target.value) !== -1);
-  }
-
   selectNone(): void {
     this.selectedTypes = [];
     this.checkboxTargets.forEach(target => target.checked = false);
+  }
+
+  docsHandler(): void {
+    this.allDocsTarget.checked = this.allDocsSelected();
+  }
+
+  imagesHandler(): void {
+    this.allImagesTarget.checked = this.allImagesSelected();
+  }
+
+  allDocsSelected = this.buildSelectionCheck(this.documentTypes);
+
+  allImagesSelected = this.buildSelectionCheck(this.imageTypes);
+
+  private buildSelectionCheck(types: String[]): () => boolean {
+    return () => this.checkboxTargets.filter(target => types.indexOf(target.value) !== -1).every(target => target.checked) 
   }
 
   private buildToggler(types): (event: PointerEvent) => void {
@@ -77,7 +87,7 @@ class SearchFilterController extends Controller {
       const isChecked = checkbox.checked;
 
       this.checkboxTargets.filter(target => types.indexOf(target.value) !== -1)
-                          .forEach(target => target.checked = isChecked);
+        .forEach(target => target.checked = isChecked);
     }
   }
 

@@ -36,30 +36,38 @@
           <p>Filter by File Type</p>
           <div class="filetype-checkbox-container">
             <div class="filetype-column">
-              <div><input type="checkbox" id="select-docs-checkbox" data-action="click->searchfilter#toggleDocs"><label
-                  for="select-docs-checkbox" class="header">Documents</label></div>
+              <div><input type="checkbox" id="select-docs-checkbox" data-searchfilter-target="allDocs"
+                  data-action="click->searchfilter#toggleDocs"><label for="select-docs-checkbox"
+                  class="header">Documents</label></div>
               <div class="checkbox-column">
-                <div><input type="checkbox" data-searchfilter-target="checkbox" value="docs" id="docs"><label
-                    for="docs">Google Docs</label></div>
-                <div><input type="checkbox" data-searchfilter-target="checkbox" value="slides" id="slides"><label
-                    for="slides">Google Slides</label></div>
-                <div><input type="checkbox" data-searchfilter-target="checkbox" value="pdf" id="pdf"><label
-                    for="pdf">PDF</label></div>
+                <div><input type="checkbox" data-searchfilter-target="checkbox"
+                    data-action="click->searchfilter#docsHandler" value="docs" id="docs"><label for="docs">Google
+                    Docs</label></div>
+                <div><input type="checkbox" data-searchfilter-target="checkbox"
+                    data-action="click->searchfilter#docsHandler" value="slides" id="slides"><label for="slides">Google
+                    Slides</label></div>
+                <div><input type="checkbox" data-searchfilter-target="checkbox"
+                    data-action="click->searchfilter#docsHandler" value="pdf" id="pdf"><label for="pdf">PDF</label>
+                </div>
               </div>
             </div>
             <div class="filetype-column">
-              <div><input type="checkbox" id="select-images-checkbox"
+              <div><input type="checkbox" id="select-images-checkbox" data-searchfilter-target="allImages"
                   data-action="click->searchfilter#toggleImages"><label for="select-images-checkbox"
                   class="header">Images</label></div>
               <div class="checkbox-column">
-                <div><input type="checkbox" data-searchfilter-target="checkbox" value="drawings" id="drawings"><label
+                <div><input type="checkbox" data-searchfilter-target="checkbox"
+                    data-action="click->searchfilter#imagesHandler" value="drawings" id="drawings"><label
                     for="drawings">Google Drawings</label></div>
-                <div><input type="checkbox" data-searchfilter-target="checkbox" value="jpg" id="jpg"><label
-                    for="jpg">JPG</label></div>
-                <div><input type="checkbox" data-searchfilter-target="checkbox" value="png" id="png"><label
-                    for="png">PNG</label></div>
-                <div><input type="checkbox" data-searchfilter-target="checkbox" value="svg" id="svg"><label
-                    for="svg">SVG</label></div>
+                <div><input type="checkbox" data-searchfilter-target="checkbox"
+                    data-action="click->searchfilter#imagesHandler" value="jpg" id="jpg"><label for="jpg">JPG</label>
+                </div>
+                <div><input type="checkbox" data-searchfilter-target="checkbox"
+                    data-action="click->searchfilter#imagesHandler" value="png" id="png"><label for="png">PNG</label>
+                </div>
+                <div><input type="checkbox" data-searchfilter-target="checkbox"
+                    data-action="click->searchfilter#imagesHandler" value="svg" id="svg"><label for="svg">SVG</label>
+                </div>
               </div>
             </div>
             <div class="filetype-column">
