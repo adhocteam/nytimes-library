@@ -15,6 +15,8 @@ class SearchFilterController extends Controller {
 
   imageTypes = ['drawings', 'jpg', 'png', 'svg'];
 
+  miscTypes = ['sheets', 'shortcut', 'video'];
+
   static targets = ['backdrop', 'filteredByLabel', 'types', 'modal', 'modalBody', 'checkbox', 'typesDesc'];
 
   connect(): void {
@@ -68,6 +70,20 @@ class SearchFilterController extends Controller {
     this.selectedTypes = [];
     this.checkboxTargets.forEach(target => target.checked = false);
   }
+
+  private buildToggler(types): (event: PointerEvent) => void {
+    return (event: PointerEvent): void => {
+      const checkbox = event.target as HTMLInputElement;
+      const isChecked = checkbox.checked;
+
+      this.checkboxTargets.filter(target => types.indexOf(target.value) !== -1)
+                          .forEach(target => target.checked = isChecked);
+    }
+  }
+
+  toggleDocs = this.buildToggler(this.documentTypes);
+
+  toggleImages = this.buildToggler(this.imageTypes);
 }
 
 export default SearchFilterController;
