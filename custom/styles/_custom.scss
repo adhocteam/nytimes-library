@@ -36,9 +36,11 @@
 }
 
 .button-accent {
-  color: #fff;
-  background-color: $accent;
-  border-color: $accent;
+  background-color: #97d4ff !important;
+}
+
+.button-accent:hover {
+  background-color: #0095ff !important;
 }
 
 // =Specific
@@ -185,12 +187,8 @@
 }
 
 .filetype-buttons {
-  margin-bottom: 1rem;
-
-  button {
-    width: 3.2rem;
-    font-size: 0.8rem;
-  }
+  margin-top: -0.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .filetype-checkbox-container {
