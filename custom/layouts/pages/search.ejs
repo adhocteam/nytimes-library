@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <%- include('partials/head', {title: template('search.results.title', locals.q)}) %>
+  <%- include('partials/head', {title: template('search.results.title', locals.q || "''")}) %>
   
   <!-- Font Awesome used for displaying FileType Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
