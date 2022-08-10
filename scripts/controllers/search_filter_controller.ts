@@ -37,11 +37,10 @@ class SearchFilterController extends Controller {
     this.selectedTypes = params.types.split(',');
     this.checkboxTargets.forEach(target => target.checked = this.selectedTypes.indexOf(target.value) !== -1);
 
-    this.filteredByLabelTarget.innerHTML = this.selectedTypes.length ? 'Filtered by: ' : '';
-    this.typesDescTarget.innerHTML = this.selectedTypes.join(', ');
+    this.updateFilteredByLabel();
 
-    this.docsHandler();
-    this.imagesHandler();
+    this.checkAllDocsSelected();
+    this.checkAllImagesSelected();
   }
 
   summonModal(): void {
@@ -63,13 +62,17 @@ class SearchFilterController extends Controller {
   onConfirm(): void {
     this.selectedTypes = this.checkboxTargets.filter(x => x.checked).map(x => x.value);
     this.updateHiddenField();
-    this.filteredByLabelTarget.innerHTML = this.selectedTypes.length ? 'Filtered by: ' : '';
-    this.typesDescTarget.innerHTML = this.selectedTypes.join(', ');
+    this.updateFilteredByLabel();
     this.dismissModal();
   }
 
   updateHiddenField(): void {
     this.typesTarget.value = this.selectedTypes.join(',');
+  }
+
+  updateFilteredByLabel(): void {
+    this.filteredByLabelTarget.innerHTML = this.selectedTypes.length ? 'Filtered by: ' : '';
+    this.typesDescTarget.innerHTML = this.selectedTypes.join(', ');
   }
 
   selectAll(): void {
@@ -86,11 +89,11 @@ class SearchFilterController extends Controller {
     this.allImagesTarget.checked = false;
   }
 
-  docsHandler(): void {
+  checkAllDocsSelected(): void {
     this.allDocsTarget.checked = this.allDocsSelected();
   }
 
-  imagesHandler(): void {
+  checkAllImagesSelected(): void {
     this.allImagesTarget.checked = this.allImagesSelected();
   }
 
@@ -102,6 +105,10 @@ class SearchFilterController extends Controller {
     return () => this.checkboxTargets.filter(target => types.indexOf(target.value) !== -1).every(target => target.checked) 
   }
 
+  toggleDocs = this.buildToggler(this.documentTypes);
+
+  toggleImages = this.buildToggler(this.imageTypes);
+
   private buildToggler(types): (event: PointerEvent) => void {
     return (event: PointerEvent): void => {
       const checkbox = event.target as HTMLInputElement;
@@ -111,10 +118,6 @@ class SearchFilterController extends Controller {
         .forEach(target => target.checked = isChecked);
     }
   }
-
-  toggleDocs = this.buildToggler(this.documentTypes);
-
-  toggleImages = this.buildToggler(this.imageTypes);
 }
 
 export default SearchFilterController;
