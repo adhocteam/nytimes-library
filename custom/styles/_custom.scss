@@ -7,6 +7,10 @@
 
 .search-container .icon {
   z-index: 1;
+
+  // Override original size so button does not overlap drop shadow
+  height: 49px !important;
+  width: 51px !important;
 }
 
 #me .fa-spinner.hide {
