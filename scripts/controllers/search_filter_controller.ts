@@ -102,7 +102,8 @@ class SearchFilterController extends Controller {
   allImagesSelected = this.buildSelectionCheck(this.imageTypes);
 
   private buildSelectionCheck(types: String[]): () => boolean {
-    return () => this.checkboxTargets.filter(target => types.indexOf(target.value) !== -1).every(target => target.checked) 
+    return () => this.checkboxTargets.filter(target => types.indexOf(target.value) !== -1)
+      .every(target => target.checked)
   }
 
   toggleDocs = this.buildToggler(this.documentTypes);
