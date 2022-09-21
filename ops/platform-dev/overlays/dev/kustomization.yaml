@@ -8,3 +8,4 @@ bases:
 patches:
   - ./serviceaccount.yaml
   - ./ingress.yaml
+  - ./deployment.yaml
