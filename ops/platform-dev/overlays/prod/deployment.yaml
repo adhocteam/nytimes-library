@@ -12,3 +12,6 @@ spec:
       containers:
       - name: content-library
         image: gcr.io/adhoc-dev-service-platform/content-library:latest
+        env:
+          - name: "GCP_PROJECT_ID"
+            value: "content-library-viewer"
