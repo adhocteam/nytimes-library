@@ -19,7 +19,7 @@ spec:
       - name: content-library
         image: gcr.io/adhoc-dev-service-platform/content-library:latest
         ports:
-          - containerPort: 8080
+          - containerPort: 3000
         resources:
           requests:
             cpu: "256m"
