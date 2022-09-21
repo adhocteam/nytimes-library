@@ -63,7 +63,6 @@ async function getAllFolders({nextPageToken, drive, parentIds = [driveId], folde
   }
 
   if (nextPageToken) {
-    options.pageToken = nextPageToken
     options.nextPageToken = nextPageToken
   }
 
