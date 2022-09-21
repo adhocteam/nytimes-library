@@ -22,10 +22,10 @@ spec:
           - containerPort: 3000
         resources:
           requests:
-            cpu: "256m"
+            cpu: "512m"
             memory: "512Mi"
           limits:
-            cpu: "512m"
+            cpu: "1000m"
             memory: "1024Mi"
       nodeSelector:
         platform.adhoc.dev/cost-type: spot
