@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: content-library
-        image: gcr.io/adhoc-dev-service-platform/content-library:dev
+        image: gcr.io/adhoc-dev-service-platform/content-library:latest
         ports:
           - containerPort: 8080
         resources:

@@ -11,4 +11,4 @@ spec:
     spec:
       containers:
       - name: content-library
-        image: gcr.io/adhoc-dev-service-platform/content-library:prod
+        image: gcr.io/adhoc-dev-service-platform/content-library:latest
