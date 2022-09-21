@@ -1,8 +1,8 @@
 name: Build and push content library image to GCR
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
 jobs:
   deploy:
     permissions:
