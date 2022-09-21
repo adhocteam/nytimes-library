@@ -9,7 +9,7 @@ const log = require('./logger');
   const isDeployedInstance = await gcpMetadata.isAvailable()
 
   if (isDeployedInstance) {
-    log.info('App Engine deployed instance detected...')
+    log.info('Running on a supported Google Cloud Platform instance...')
 
     // We're on GCP here.  Load up environment variables from
     // Secrets Manager
