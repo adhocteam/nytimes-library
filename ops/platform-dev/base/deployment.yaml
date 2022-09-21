@@ -26,6 +26,16 @@ spec:
           limits:
             cpu: "512m"
             memory: "1024Mi"
+        volumeMounts:
+          - mountPath: "/var/secrets"
+            name: envfile
+      volumes:
+      - name: envfile
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "content-library-secrets"
       nodeSelector:
         platform.adhoc.dev/cost-type: spot
       tolerations:

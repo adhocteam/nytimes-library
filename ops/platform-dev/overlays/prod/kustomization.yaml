@@ -8,3 +8,4 @@ bases:
 patches:
   - ./serviceaccount.yaml
   - ./deployment.yaml
+  - ./secretproviderclass.yaml

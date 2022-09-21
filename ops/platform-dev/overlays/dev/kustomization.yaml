@@ -7,3 +7,5 @@ bases:
 
 patches:
   - ./serviceaccount.yaml
+  - ./secretproviderclass.yaml
+  - ./ingress.yaml

@@ -8,3 +8,4 @@ bases:
 - ./service.yaml
 - ./ingress.yaml
 - ./serviceaccount.yaml
+- ./secretproviderclass.yaml
