@@ -14,6 +14,7 @@ spec:
       labels:
         app: content-library
     spec:
+      serviceAccountName: content-library
       containers:
       - name: content-library
         image: gcr.io/adhoc-dev-service-platform/content-library:latest

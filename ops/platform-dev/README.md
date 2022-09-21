@@ -20,7 +20,7 @@ This directory contains the Kubernetes manifests needed to deploy the content li
 3. Apply the manifest with `kubectl apply -k ops/platform-dev/overlays/dev` (again, sub `dev` for `prod` for the prod environment) to create the cluster resources within the GKE cluster.
 4. Watch the deployment happen with `kubectl get pods -n content-library-dev`. You should see the pod come up as `running` if it deployed successfully, and `Error` or `CrashLoopBackOff` if something has gone wrong with it.
 
-
+If you make any changes to the manifest and want to apply the changes, simply run these steps again. Kubernetes will take care of rolling out new changes automatically after the apply command.
 ## Troubleshooting a deployment
 
 Should something go wrong with the deployment of the app on the GKE cluster there are a few ways to look into the problem.
@@ -28,3 +28,8 @@ Should something go wrong with the deployment of the app on the GKE cluster ther
 Run `kubectl describe pod content-library-xxxxx` (you can tab complete the last part) to view the events of the pod. If the pod has run into a Kubernetes scheduling issue (i.e the pod never created because of a reason), the reason will usually be logged here.
 
 Alternatively, if the pod created but crashed during runtime (usually because the container itself crashed), you can view the container logs with `kubectl logs content-library-xxxxx` (again, tab completion is supported and encouraged). Additionally, viewing the pod logs in [Ad Hoc's Loki instance](https://adhocteam.grafana.net/explore?orgId=1&left=%7B%22datasource%22:%22grafanacloud-logs%22,%22queries%22:%5B%7B%22refId%22:%22A%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D) is another solution without the CLI.
+
+
+## Restarting a deployment
+
+If you want to restart a deployment without making any modifications to the manifest you can restart the deployment with `kubectl rollout restart content-library -n content-library-dev` (sub `dev` for `prod` for prod environments)
