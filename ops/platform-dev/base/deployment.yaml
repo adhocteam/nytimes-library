@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: content-library
+  labels:
+    app: content-library
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: content-library
+  template:
+    metadata:
+      labels:
+        app: content-library
+    spec:
+      containers:
+      - name: content-library
+        image: gcr.io/adhoc-dev-service-platform/content-library:dev
+        ports:
+          - containerPort: 8080
+        resources:
+          requests:
+            cpu: "256m"
+            memory: "512Mi"
+          limits:
+            cpu: "512m"
+            memory: "1024Mi"
+      nodeSelector:
+        platform.adhoc.dev/cost-type: spot
+      tolerations:
+        - key: "sandbox.gke.io/runtime"
+          operator: "Equal"
+          value: "gvisor"
+          effect: "NoSchedule"
