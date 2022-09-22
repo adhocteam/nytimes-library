@@ -55,20 +55,20 @@ async function fullSearch({drive, query, folderIds, results = [], nextPageToken,
 }
 
 // Grab all folders in directory to search through in shared drive
-async function getAllFolders({nextPageToken, drive, parentIds = [driveId], foldersSoFar = []} = {}) {
+async function getAllFolders({nextPageToken: pageToken, drive, parentIds = [driveId], foldersSoFar = []} = {}) {
   const options = {
     ...list.commonListOptions.folder,
     q: `(${parentIds.map((id) => `'${id}' in parents`).join(' or ')}) AND mimeType = 'application/vnd.google-apps.folder'`,
     fields: 'files(id,name,mimeType,parents)'
   }
 
-  if (nextPageToken) {
-    options.nextPageToken = nextPageToken
+  if (pageToken) {
+    options.pageToken = pageToken
   }
 
   const {data} = await drive.files.list(options)
 
-  const {files} = data
+  const {files, nextPageToken} = data
   const combined = foldersSoFar.concat(files)
 
   if (nextPageToken) {
