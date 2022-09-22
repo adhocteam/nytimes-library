@@ -20,6 +20,12 @@ spec:
         image: gcr.io/adhoc-dev-service-platform/content-library:latest
         ports:
           - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 3
         resources:
           requests:
             cpu: "512m"
