@@ -15,21 +15,21 @@ spec:
         env:
           - name: "GCP_PROJECT_ID"
             value: "content-library-viewer"
-        nodeSelector: {}
-        affinity:
-          nodeAffinity:
-            preferredDuringSchedulingIgnoredDuringExecution:
-              - weight: 25
-                preference:
-                  matchExpressions:
-                    - key: platform.adhoc.dev/cost-type
-                      operator: In
-                      values:
-                        - on-demand
-              - weight: 30
-                preference:
-                  matchExpressions:
-                    - key: platform.adhoc.dev/cost-type
-                      operator: In
-                      values:
-                        - spot
+      nodeSelector: {}
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 25
+              preference:
+                matchExpressions:
+                  - key: platform.adhoc.dev/cost-type
+                    operator: In
+                    values:
+                      - on-demand
+            - weight: 30
+              preference:
+                matchExpressions:
+                  - key: platform.adhoc.dev/cost-type
+                    operator: In
+                    values:
+                      - spot
