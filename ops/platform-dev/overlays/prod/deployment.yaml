@@ -3,7 +3,8 @@ kind: Deployment
 metadata:
   name: content-library
 spec:
-  replicas: 2
+  # Running more than 1 replica may present some issues with authenticating, so it should be avoided for now
+  replicas: 1
   template:
     metadata:
       labels:
