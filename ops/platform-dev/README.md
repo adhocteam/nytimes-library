@@ -10,7 +10,6 @@ This directory contains the Kubernetes manifests needed to deploy the content li
 
 
 - The Terraform code must all be deployed
-- The `SECRET_ENV_FILE` must be populated with valid data the app can start with
 - Whoever is applying the manifests must set up the [gcloud CLI](https://cloud.google.com/sdk/gcloud), authenticate to GCP with their adhocteam.us credentials, and finally install the GKE components with `gcloud components install gke-gcloud-auth-plugin kustomize kubectl`
 
 ## Steps
