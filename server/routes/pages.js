@@ -7,6 +7,7 @@ const router = require('express-promise-router')()
 
 const {getTree, getFilenames, getMeta, getTagged} = require('../list')
 const {getTemplates, sortDocs, stringTemplate, getConfig} = require('../utils')
+const log = require('../logger')
 
 router.get('/', handlePage)
 router.get('/:page', handlePage)
@@ -25,6 +26,7 @@ const driveType = process.env.DRIVE_TYPE
 
 // express-promsie-router will call next() if the return value is 'next'.
 async function handlePage(req, res) {
+  log.info('HANDLING PAGE - NOT CUSTOM')
   const page = req.params.page || 'index'
   if (!pages.has(page)) return 'next'
 

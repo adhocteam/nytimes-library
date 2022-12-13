@@ -8,6 +8,7 @@ const {getTree, getFilenames, getMeta, getTagged} = require('../../server/list')
 const {getTemplates, sortDocs, stringTemplate, getConfig} = require('../../server/utils')
 
 const {iconTypes, fileTypeNames} = require('../common/fileTypes')
+const log = require('../../server/logger')
 
 router.get('/', handlePage)
 router.get('/:page', handlePage)
@@ -26,12 +27,14 @@ const driveType = process.env.DRIVE_TYPE
 
 // express-promise-router will call next() if the return value is 'next'.
 async function handlePage(req, res) {
+  log.info('HANDLING PAGE')
   const page = req.params.page || 'index'
   if (!pages.has(page)) return 'next'
 
   const template = `pages/${page}`
   const {q, autocomplete, types} = req.query
   if (page === 'search' && q) {
+    log.info("CALLING search MODULE'S run function")
     return search.run(q, types, driveType).then((results) => {
       // special rule for the autocomplete case, go directly to the item if we find it.
       if (autocomplete) {
