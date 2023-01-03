@@ -77,7 +77,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config user.email "infrastructure.admin@adhocteam.us"
-          git config user.name "Github Actions"
+          git config user.name "Ad Hoc Infrastructure Bot"
           git commit -am "GitOps: Update ${{ matrix.environment }} deployment image to ${{ env.TAG }}"
           git pull --rebase
           git push
