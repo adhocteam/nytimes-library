@@ -66,6 +66,8 @@ jobs:
     steps:
       - name: Checking Repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@6691bdeb1b0a3286fb7f70fd1423c10e81e5375f
       - name: Set dev image version to new commit SHA
