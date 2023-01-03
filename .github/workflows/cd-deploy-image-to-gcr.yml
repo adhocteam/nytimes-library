@@ -57,7 +57,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        environment: [dev, prod]
+        environment: [dev]
     # needs:
     #   - build-push-image
     runs-on: ubuntu-latest
