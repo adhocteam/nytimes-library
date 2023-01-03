@@ -74,10 +74,11 @@ jobs:
         run: cd ops/platform-dev/overlays/${{ matrix.environment }} && kustomize edit set image gcr.io/${{ secrets.ADHOC_GCR_PLATFORM_DEV_PROJECT_ID }}/content-library:${{ env.TAG }}
       - name: Push kustomize edit into Github
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config user.email "infrastructure.admin@adhocteam.us"
           git config user.name "Ad Hoc Infrastructure Bot"
+          git config --global url.https://$GITHUB_ACCESS_TOKEN@github.com/.insteadOf https://github.com/
           git commit -am "GitOps: Update ${{ matrix.environment }} deployment image to ${{ env.TAG }}"
           git pull --rebase
           git push
