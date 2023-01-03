@@ -10,6 +10,5 @@ patchesStrategicMerge:
 resources:
 - ../../base
 images:
-- name: gcr.io/adhoc-dev-service-platform/content-library:latest
-  newName: gcr.io/adhoc-dev-service-platform/content-library
+- name: gcr.io/adhoc-dev-service-platform/content-library
   newTag: 18135849020eba23f481ec9cc0c6f342873567ad

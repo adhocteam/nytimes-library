@@ -1,10 +1,10 @@
 name: Build and push content library image to GCR
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
 jobs:
-  deploy:
+  build-push-image:
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -48,3 +48,26 @@ jobs:
           cache-from: type=registry,ref=user/app:latest
           cache-to: type=inline
           tags: gcr.io/${{ secrets.ADHOC_GCR_PLATFORM_DEV_PROJECT_ID }}/content-library:${{ env.TAG }},gcr.io/${{ secrets.ADHOC_GCR_PLATFORM_DEV_PROJECT_ID }}/content-library:latest
+
+  deploy-dev:
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+      repository-projects: 'write'
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.sha }}
+    steps:
+      - name: Checking Repository
+        uses: actions/checkout@v3
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@6691bdeb1b0a3286fb7f70fd1423c10e81e5375f
+      - name: Set dev image version to new commit SHA
+        run: cd ops/platform-dev/overlays/dev && kustomize edit set image gcr.io/${{ secrets.ADHOC_GCR_PLATFORM_DEV_PROJECT_ID }}/content-library:${{ env.TAG }}
+      - name: Push kustomize edit into Github
+        run: |
+          git config user.email "infrastructure.admin@adhocteam.us"
+          git config user.name "Github Actions"
+          git commit -am "GitOps: Update Dev deployment image to ${{ env.TAG }}"
+          git pull --rebase
+          git push
