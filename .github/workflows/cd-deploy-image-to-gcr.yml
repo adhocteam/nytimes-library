@@ -72,12 +72,17 @@ jobs:
         uses: imranismail/setup-kustomize@6691bdeb1b0a3286fb7f70fd1423c10e81e5375f
       - name: Set dev image version to new commit SHA
         run: cd ops/platform-dev/overlays/${{ matrix.environment }} && kustomize edit set image gcr.io/${{ secrets.ADHOC_GCR_PLATFORM_DEV_PROJECT_ID }}/content-library:${{ env.TAG }}
+      
+      # The PAT method is a hacky workaround that gets around the limitation that the GHA token is not able to bypass the main branch
+      # protection rule.
+      # https://github.com/community/community/discussions/13836
       - name: Push kustomize edit into Github
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
+        if: github.actor != 'github-actions'
         run: |
-          git config user.email "infrastructure.admin@adhocteam.us"
-          git config user.name "Ad Hoc Infrastructure Bot"
+          git config user.email "github-actions-bot@github.com"
+          git config user.name "github-actions"
           git config --global url.https://$GITHUB_ACCESS_TOKEN@github.com/.insteadOf https://github.com/
           git commit -am "GitOps: Update ${{ matrix.environment }} deployment image to ${{ env.TAG }}"
           git pull --rebase
