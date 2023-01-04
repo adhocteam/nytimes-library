@@ -79,7 +79,7 @@ jobs:
       - name: Push kustomize edit into Github
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
-        if: github.actor != 'jenkins-adhoc-team'
+        if: github.actor != 'Ad Hoc Infrastructure Bot'
         run: |
           git config user.email "infrastructure@adhocteam.us"
           git config user.name "Ad Hoc Infrastructure Bot"
