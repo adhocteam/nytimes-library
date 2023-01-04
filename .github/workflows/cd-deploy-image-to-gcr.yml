@@ -5,6 +5,7 @@ on:
     #   - main
 jobs:
   # build-push-image:
+  #   if: github.actor != 'jenkins-adhoc-team'
   #   permissions:
   #     contents: 'read'
   #     id-token: 'write'
@@ -50,6 +51,7 @@ jobs:
   #         tags: gcr.io/${{ secrets.ADHOC_GCR_PLATFORM_DEV_PROJECT_ID }}/content-library:${{ env.TAG }},gcr.io/${{ secrets.ADHOC_GCR_PLATFORM_DEV_PROJECT_ID }}/content-library:latest
 
   deploy:
+    if: github.actor != 'jenkins-adhoc-team'
     permissions:
       contents: 'write'
       id-token: 'write'
@@ -79,7 +81,6 @@ jobs:
       - name: Push kustomize edit into Github
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
-        if: github.actor != 'Ad Hoc Infrastructure Bot'
         run: |
           git config user.email "infrastructure@adhocteam.us"
           git config user.name "Ad Hoc Infrastructure Bot"
