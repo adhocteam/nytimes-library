@@ -1,8 +1,8 @@
 name: Build and push content library image to GCR
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
 jobs:
   build-push-image:
     if: github.actor != 'jenkins-adhoc-team'
@@ -58,7 +58,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        environment: [dev]
+        environment: [dev, prod]
     needs:
       - build-push-image
     runs-on: ubuntu-latest
