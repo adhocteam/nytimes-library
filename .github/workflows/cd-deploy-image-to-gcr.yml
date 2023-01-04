@@ -81,7 +81,7 @@ jobs:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
         if: github.actor != 'jenkins-adhoc-team'
         run: |
-          git config user.email "github-actions-bot@github.com"
+          git config user.email "infrastructure@adhocteam.us"
           git config user.name "Ad Hoc Infrastructure Bot"
           git config --global url.https://$GITHUB_ACCESS_TOKEN@github.com/.insteadOf https://github.com/
           git commit -am "GitOps: Update ${{ matrix.environment }} deployment image to ${{ env.TAG }}"
