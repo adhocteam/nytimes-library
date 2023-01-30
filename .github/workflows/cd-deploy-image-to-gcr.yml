@@ -41,7 +41,7 @@ jobs:
           password: '${{ steps.auth.outputs.access_token }}'
 
       - name: Build and push image to GCR
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: .
           pull: true
