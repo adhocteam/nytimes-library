@@ -11,4 +11,4 @@ resources:
 - ../../base
 images:
 - name: gcr.io/adhoc-dev-service-platform/content-library
-  newTag: a827f78cd34a9915733966cdac10b487f8efefe3
+  newTag: 8ccfae96a2d40baf191ebfc70b3d8065c37ab756
