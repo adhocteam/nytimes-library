@@ -35,16 +35,16 @@ exports.run = async (query, types, driveType = 'team') => {
   return fileMetas
 }
 
-async function fullSearch({drive, query, folderIds, results = [], nextPageToken: pageToken, driveType, excludedFolders, mimeTypes}) {
+async function fullSearch({drive, query, folderIds, results = [], nextPageToken, driveType, excludedFolders, mimeTypes}) {
   const options = getOptions(query, folderIds, driveType, excludedFolders, mimeTypes)
 
-  if (pageToken) {
-    options.pageToken = pageToken
+  if (nextPageToken) {
+    options.nextPageToken = nextPageToken
   }
 
   const {data} = await drive.files.list(options)
 
-  const {files, nextPageToken} = data
+  const {files} = data
   const total = results.concat(files)
 
   if (nextPageToken) {
