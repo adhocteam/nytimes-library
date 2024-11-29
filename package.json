@@ -9,7 +9,7 @@
     "@hotwired/stimulus": "^3.0.1",
     "cache-manager": "^3.3.0",
     "chai": "^4.2.0",
-    "cheerio": "^1.0.0-rc.3",
+    "cheerio": "^1.0.0-rc.12",
     "deepmerge": "^4.2.2",
     "dotenv": "^8.6.0",
     "ejs": "^3.1.7",
